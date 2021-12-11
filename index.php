@@ -7,8 +7,6 @@
     <title>PizzaNino</title>
 </head>
 <body>
-    <menu>
-        <option value="boton"></option>
-    </menu>
+   
 </body>
 </html>
