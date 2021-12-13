@@ -7,6 +7,6 @@
     <title>PizzaNino</title>
 </head>
 <body>
-   <menu></menu>
+   
 </body>
 </html>
