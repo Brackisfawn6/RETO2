@@ -33,10 +33,10 @@
         </div>
 	
 <ul>
-	<li><a id='home' href='#home'>Home</a></li>
-	<li><a id='about' href='#about'>About</a></li>
-	<li><a id='contact' href='#contact'>Contact</a></li>
-	<li><a id='link' href='#link'>Other</a></li>
+	<li><a id='home' href='#home'>Elige tu Pizza</a></li>
+	<li><a id='about' href='#about'>Nuestros Menus</a></li>
+	<li><a id='contact' href='#contact'>Promociones</a></li>
+	<li><a id='link' href='#link'>Contacto</a></li>
 </ul>
 
 </label>
