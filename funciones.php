@@ -1,6 +1,24 @@
 <?php
 
-function inicioSesion($conexion,$dni){
+function Login($conexion,$dni){
+
+    $sql="SELECT * FROM cliente";
+    $registros=mysqli_query($conexion,$sql);
+
+    while ($datos = mysqli_fetch_assoc($registros)){
+
+        if ($datos['DNI'] == $dni){
+            echo "Cliente encontrado";
+        }
+        else{
+            echo "Cliente no encontrado";
+        }
+
+    }
+
+}
+
+function Registrarse($conexion,$dni){
 
     $sql="SELECT * FROM cliente";
     $registros=mysqli_query($conexion,$sql);

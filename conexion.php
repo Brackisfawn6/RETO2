@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$database = "pizzeriareto";
-$username = "root";
-$password = "";
+$servername = "10.5.12.79";
+$database = "PizzeriaReto";
+$username = "admin";
+$password = "12345678";
 
 $conexion = mysqli_connect($servername, $username, $password, $database);
 
