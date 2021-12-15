@@ -2,14 +2,13 @@
 
 function Login($conexion,$dni,$password){
 
-    $sql="SELECT * FROM cliente";
+    $sql="SELECT * FROM Cliente";
     $registros=mysqli_query($conexion,$sql);
-
+    
     while ($datos = mysqli_fetch_assoc($registros)){
 
         if ($datos['DNI'] == $dni){
-            echo "Cliente correcto";
-            if ($datos['Password'] == $password){
+            if ($datos['password'] == $password){
                 echo "ACCESO PERMITIDO";
             }else{
                 echo "ACCESO DENEGADO: contraseña incorrecta";
@@ -21,23 +20,23 @@ function Login($conexion,$dni,$password){
 
     }
 
+    mysqli_close($conexion);
+
 }
 
-function Registrarse($conexion,$dni){
+function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
-    $sql="SELECT * FROM cliente";
+    $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email',current_date(),'$password')";
     $registros=mysqli_query($conexion,$sql);
+    echo "$sql";
 
-    while ($datos = mysqli_fetch_assoc($registros)){
-
-        if ($datos['DNI'] == $dni){
-            echo "Cliente encontrado";
-        }
-        else{
-            echo "Cliente no encontrado";
-        }
-
+    if (mysqli_query($conexion, $sql)) {
+        echo "User created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
     }
+
+    mysqli_close($conexion);  
 
 }
 

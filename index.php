@@ -34,10 +34,10 @@
         </div>
 	
 <ul>
-	<li><a id='home' href='#home'>Home</a></li>
-	<li><a id='about' href='#about'>About</a></li>
-	<li><a id='contact' href='#contact'>Contact</a></li>
-	<li><a id='link' href='#link'>Other</a></li>
+	<li><a id='home' href='#home'>MENU1</a></li>
+	<li><a id='about' href='#about'>MENU2</a></li>
+	<li><a id='contact' href='#contact'>MENU3</a></li>
+	<li><a id='link' href='#link'>MENU6</a></li>
 </ul>
 
 </label>

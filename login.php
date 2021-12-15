@@ -20,10 +20,9 @@
 
         if (validar_dni($dni)==false){
             echo "Formato DNI es incorrecto";
+        }else{
+            Login($conexion,$dni,$password);
         }
-        Login($conexion,$dni,$password);
-
-        
 
     }else{
 
@@ -32,9 +31,10 @@
             DNI: <br>
             <input type='text' name='dni'> <br>
             Contraseña: <br>
-            <input type='text' name='password'> <br> <br>
+            <input type='password' name='password'> <br> <br>
         <input type='submit' value='Login' name='Login'>
-        </form>";	
+        </form>
+        <a class='enlaceboton' href='registro.php'>Registrarse</a>";	
     }
 
     ?> 
