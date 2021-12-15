@@ -36,7 +36,7 @@
 <ul>
 	<li><a id='home' href='#home'>Elige tu Pizza</a></li>
 	<li><a id='about' href='#about'>Nuestros Menus</a></li>
-	<li><a id='contact' href='#contact'>Promociones</a></li>
+	<li><a id='contact' href='#contact'>Aparece</a></li>
 	<li><a id='link' href='#link'>Contacto</a></li>
 </ul>
 
