@@ -35,7 +35,7 @@
 	
 <ul>
 
-	<li><a id='pizzas' href='#home'>Elige</a></li>
+	<li><a id='pizzas' href='#home'>Elige tu pizza</a></li>
 	<li><a id='menus' href='#about'>Nuestros Menus</a></li>
     <li><a id='promociones' href='#promociones'>Promociones</a></li>
     <li><a id='inicioSesion' href='login.php'>Login</a></li>
