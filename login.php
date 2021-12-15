@@ -16,11 +16,12 @@
     if (isset($_REQUEST['Login'])){
 
         $dni=$_REQUEST['dni'];
+        $password=$_REQUEST['password'];
 
         if (validar_dni($dni)==false){
             echo "Formato DNI es incorrecto";
         }
-        inicioSesion($conexion,$dni);
+        Login($conexion,$dni,$password);
 
         
 

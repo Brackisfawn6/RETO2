@@ -1,6 +1,6 @@
 <?php
 
-function Login($conexion,$dni){
+function Login($conexion,$dni,$password){
 
     $sql="SELECT * FROM cliente";
     $registros=mysqli_query($conexion,$sql);
@@ -8,7 +8,12 @@ function Login($conexion,$dni){
     while ($datos = mysqli_fetch_assoc($registros)){
 
         if ($datos['DNI'] == $dni){
-            echo "Cliente encontrado";
+            echo "Cliente correcto";
+            if ($datos['Password'] == $password){
+                echo "ACCESO PERMITIDO";
+            }else{
+                echo "ACCESO DENEGADO: contraseña incorrecta";
+            }
         }
         else{
             echo "Cliente no encontrado";
