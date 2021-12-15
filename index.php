@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzeria</title>
+    <link rel="stylesheet" media="all" href="estilos.css" />
 </head>
 <body>
 
@@ -19,39 +20,26 @@
         <fieldset>
             <input type='submit' value='Login'>  
         </fieldset>
-    </form>   
+    </form>  
 
-    <nav class="menu">
-  <input id ="menu__toggle" type="checkbox" class='menu__toggle'/>
-  <label for="menu__toggle" class="menu__toggle-label">
-    <svg preserveAspectRatio='xMinYMin' viewBox='0 0 24 24'>
-      <path d='M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z' />
-    </svg>
-    <svg preserveAspectRatio='xMinYMin' viewBox='0 0 24 24'>
-      <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-    </svg>
-  </label>
-  <ol class='menu__content'>
-    <li class="menu-item"><a href="#0">Home</a></li>
-    <li class="menu-item"><a href="#0">About</a></li>
-    <li class="menu-item">
-      <a href="#0">Widgets</a>
-      <ol class="sub-menu">
-        <li class="menu-item"><a href="#0">Big Widgets</a></li>
-        <li class="menu-item"><a href="#0">Bigger Widgets</a></li>
-        <li class="menu-item"><a href="#0">Huge Widgets</a></li>
-      </ol>
-    </li>
-    <li class="menu-item">
-      <a href="#0">Kabobs</a>
-      <ol class="sub-menu">
-        <li class="menu-item"><a href="#0">Shishkabobs</a></li>
-        <li class="menu-item"><a href="#0">BBQ kabobs</a></li>
-        <li class="menu-item"><a href="#0">Summer kabobs</a></li>
-      </ol>
-    </li>
-    <li class="menu-item"><a href="#0">Contact</a></li>
-  </ol>
-</nav>
+    <input type='checkbox' id='mmeennuu'>
+    <label class='menu' for='mmeennuu'>
+
+        <div class='barry'>
+	     <span class='bar'></span>
+	     <span class='bar'></span>
+	     <span class='bar'></span>
+	     <span class='bar'></span>
+        </div>
+	
+<ul>
+	<li><a id='home' href='#home'>Home</a></li>
+	<li><a id='about' href='#about'>About</a></li>
+	<li><a id='contact' href='#contact'>Contact</a></li>
+	<li><a id='link' href='#link'>Other</a></li>
+</ul>
+
+</label>
+   
 </body>
 </html>
