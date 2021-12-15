@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #222;
+    background-image: url("Imagenes/PIzzaIndex.jpeg");
   }
   
   * {
@@ -18,7 +18,7 @@ body {
     border-radius: 5px;
     background-color: transparent;
     border: 3px solid #F44336;
-    height: 85px;
+    height: 180px;
   }
   #mmeennuu:checked ~ .menu > ul {
     display: block;
