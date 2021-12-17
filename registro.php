@@ -35,6 +35,7 @@
                 <div class='screen'>
                     <div class='screen__content'>
                         <form class='login' action='registro.php' method='REQUEST'>
+                            <h1> REGISTRO <h1>
                             <div class='login__field'>
                                 <i class='login__icon fas fa-user'></i>
                                 <input type='text' class='login__input' name='dni' placeholder='DNI'>

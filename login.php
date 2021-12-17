@@ -24,6 +24,7 @@
 				<div class='screen'>
 					<div class='screen__content'>
 						<form class='login' action='login.php' method='REQUEST'>
+							<h1> LOGIN </h1>
 							<h2>" . Login($conexion,$dni,$password) . "</h2>
 							<div class='login__field'>
 								<i class='login__icon fas fa-user'></i>
@@ -39,6 +40,7 @@
 							</button>				
 						</form>
 						<div class='social-login'>
+						<br><br><br><br>
 							<a href='registro.php'>Registrarse</a>
 						</div>
 					</div>
@@ -60,6 +62,7 @@
 		<div class='screen'>
 			<div class='screen__content'>
 				<form class='login' action='login.php' method='REQUEST'>
+				<h1> LOGIN </h1>
 					<div class='login__field'>
 						<i class='login__icon fas fa-user'></i>
 						<input type='text' class='login__input'  name='dni' placeholder='DNI'>
@@ -74,6 +77,7 @@
 					</button>				
 				</form>
 				<div class='social-login'>
+					<br><br><br><br>
 					<a href='registro.php'>Registrarse</a>
 				</div>
 			</div>
