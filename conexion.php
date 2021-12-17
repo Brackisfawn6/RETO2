@@ -4,6 +4,11 @@ $database = "PizzeriaReto";
 $username = "admin";
 $password = "12345678";
 
+/*$servername = "localhost";
+$database = "PizzeriaReto";
+$username = "root";
+$password = "";*/
+
 $conexion = mysqli_connect($servername, $username, $password, $database);
 
 if (!$conexion) {
