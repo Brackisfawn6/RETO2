@@ -7,18 +7,24 @@ function Login($conexion,$dni,$password){
     
     while ($datos = mysqli_fetch_assoc($registros)){
 
-        if ($datos['DNI'] == $dni){
-            if ($datos['password'] == $password){
-                echo "ACCESO PERMITIDO";
-            }else{
-                echo "ACCESO DENEGADO: contraseña incorrecta";
+        if(validar_dni($dni)==false){
+            $mensaje = "Formato DNI es incorrecto";
+        }else{
+            if ($datos['DNI'] == $dni){
+                if ($datos['password'] == $password){
+                    echo "<meta http-equiv='refresh' content='0 url=index.php'>";
+                }else{
+                    $mensaje= "ACCESO DENEGADO: contraseña incorrecta";
+                }
             }
-        }
-        else{
-            echo "Cliente no encontrado";
+            else{
+                $mensaje = "Cliente no encontrado";
+            }
         }
 
     }
+
+    return $mensaje;
 
     mysqli_close($conexion);
 
@@ -52,5 +58,39 @@ function validar_dni ($dni) {
     }   
     return $valido;
 }
+
+function pagina_login() {
+    echo "
+	<div class='container'>
+		<div class='screen'>
+			<div class='screen__content'>
+				<form class='login' action='login.php' method='REQUEST'>
+					<div class='login__field'>
+						<i class='login__icon fas fa-user'></i>
+						<input type='text' class='login__input'  name='dni' placeholder='DNI'>
+					</div>
+					<div class='login__field'>
+						<i class='login__icon fas fa-lock'></i>
+						<input type='password' class='login__input' name='password' placeholder='Contraseña'>
+					</div>
+					<button class='button login__submit' type='submit' value='Login' name='Login'>
+						<span class='button__text'>INICIAR SESION</span>
+						<i class='button__icon fas fa-chevron-right'></i>
+					</button>				
+				</form>
+				<div class='social-login'>
+					<a href='registro.php'>Registrarse</a>
+				</div>
+			</div>
+			<div class='screen__background'>
+				<span class='screen__background__shape screen__background__shape4'></span>
+				<span class='screen__background__shape screen__background__shape3'></span>		
+				<span class='screen__background__shape screen__background__shape2'></span>
+				<span class='creen__background__shape screen__background__shape1'></span>
+			</div>		
+		</div>
+	</div>";
+} 
+
 
 ?>
