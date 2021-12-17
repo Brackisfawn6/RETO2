@@ -7,21 +7,26 @@ function Login($conexion,$dni,$password){
     
     while ($datos = mysqli_fetch_assoc($registros)){
 
-        if(validar_dni($dni)==false){
-            $mensaje = "Formato DNI es incorrecto";
+        if($dni==""){
+            $mensaje = "Faltan datos";
         }else{
-            if ($datos['DNI'] == $dni){
-                if ($datos['password'] == $password){
-                    echo "<meta http-equiv='refresh' content='0 url=index.php'>";
-                }else{
-                    $mensaje= "ACCESO DENEGADO: contraseña incorrecta";
+            if(validar_dni($dni)==false){
+                $mensaje = "Formato DNI es incorrecto";
+            }else{
+                if ($datos['DNI'] == $dni){
+                    if ($datos['password'] == $password){
+                        echo "<meta http-equiv='refresh' content='0 url=index.php'>";
+                    }elseif($password==""){
+                        $mensaje= "Faltan datos";
+                    }else{
+                        $mensaje= "Contraseña incorrecta";
+                    }
+                }
+                else{
+                    $mensaje = "Cliente no encontrado";
                 }
             }
-            else{
-                $mensaje = "Cliente no encontrado";
-            }
         }
-
     }
 
     return $mensaje;
