@@ -23,16 +23,13 @@
         <div class='barry'>
             <span class='bar'></span>
             <span class='bar'></span>
-            <span class='bar'></span>
-            <span class='bar'></span>
         </div>
         
         <ul>
-            <li><a id='pizzas' href='#home'>Elige tu pizza</a></li>
-            <li><a id='menus' href='#about'>Nuestros Menus</a></li>
-            <li><a id='promociones' href='#promociones'>Promociones</a></li>
+            <li><a id='pizzas' href='elegirPizza.php'>Elige tu pizza</a></li>
+            <li><a id='promociones' href='promociones.php'>Promociones</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
-            <li><a id='contacto' href='#link'>Contacto</a></li>
+            <li><a id='contacto' href='contacto.php'>Contacto</a></li>
         </ul>
 
     </label>
