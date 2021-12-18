@@ -1,5 +1,6 @@
 <?php
 $servername = "10.5.12.79";
+#$servername = "localhost"
 $database = "PizzeriaReto";
 $username = "admin";
 $password = "12345678";
