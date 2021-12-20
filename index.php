@@ -32,7 +32,7 @@
             <li><a id='menus' href='listarPizzas.php'>Ver Nuestras Pizzas</a></li>
             <li><a id='promociones' href='#promociones'>Promociones</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
-            <li><a id='contacto' href='#link'>Contacto</a></li>
+            <li><a id='contacto' href='contacto.php'>Contacto</a></li>
         </ul>
 
     </label>
