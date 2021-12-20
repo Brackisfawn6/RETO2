@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('../Imagenes/pizza2.jpeg');
+    background-image: url('../Imagenes/fondo.jpg');
   }
   
   * {
@@ -77,8 +77,9 @@ body {
     text-decoration: none;
     display: inline-block;
     padding: 15px 25px;
-    color: #F44336;
+    color: #0c0c0c;
     font-size: 20px;
+    font-weight: 800;
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
