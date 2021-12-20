@@ -7,16 +7,13 @@ function Login($conexion,$dni,$password){
     
     while ($datos = mysqli_fetch_assoc($registros)){
 
-        if($dni==""){
+        if(empty($dni)){
             $mensaje = "Faltan datos";
         }else{
-            if(validar_dni($dni)==false){
-                $mensaje = "Formato DNI es incorrecto";
-            }else{
-                if ($datos['DNI'] == $dni){
+            if($datos['DNI'] == $dni){
                     if ($datos['password'] == $password){
                         echo "<meta http-equiv='refresh' content='0 url=index.php'>";
-                    }elseif($password==""){
+                    }elseif(empty($password)){
                         $mensaje= "Faltan datos";
                     }else{
                         $mensaje= "Contraseña incorrecta";
@@ -27,75 +24,48 @@ function Login($conexion,$dni,$password){
                 }
             }
         }
+
+        return $mensaje;
+        mysqli_close($conexion);
+
     }
-
-    return $mensaje;
-
-    mysqli_close($conexion);
-
-}
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
     $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email',current_date(),'$password')";
-    $registros=mysqli_query($conexion,$sql);
-    echo "$sql";
-
-    if (mysqli_query($conexion, $sql)) {
-        echo "User created successfully";
+    
+    
+    if(empty($dni) || empty($nombre) || empty($direccion) || empty($poblacion) || empty($telefono) || empty($email) || empty($password)){
+        $mensaje = "Rellene todos los campos.";
+    }elseif (!mysqli_query($conexion, $sql)) {
+        $mensaje = "Este DNI ya esta registrado";
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
+        $mensaje = "Usuario registrado correctamente.";
+        $registros=mysqli_query($conexion,$sql);
     }
 
+    return $mensaje;
+    
     mysqli_close($conexion);  
 
 }
 
-function validar_dni ($dni) {
+function ListarPizzas($conexion) {
+    mysqli_set_charset ( $conexion , 'utf8' );
+    $sql= "select * from Pizza";
+    $registros=mysqli_query($conexion, $sql);
+    echo "<table> 
+    <tr> <th>Pizzas</th> <th>Precio</th> <tr>";
+    while ($datos = mysqli_fetch_assoc($registros)) {
+       echo"
+        <tr>
+            <td>$datos[nom_pizza]</td>
+            <td>$datos[precio] €</td>
+        </tr>";      
+    }
 
-    $letra = substr($dni, -1);
-    $numeros = substr($dni, 0, -1);
-    $valido;
-    if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
-      $valido=true;
-    }else{
-      $valido=false;
-    }   
-    return $valido;
+    echo  "</table>";
 }
-
-function pagina_login() {
-    echo "
-	<div class='container'>
-		<div class='screen'>
-			<div class='screen__content'>
-				<form class='login' action='login.php' method='REQUEST'>
-					<div class='login__field'>
-						<i class='login__icon fas fa-user'></i>
-						<input type='text' class='login__input'  name='dni' placeholder='DNI'>
-					</div>
-					<div class='login__field'>
-						<i class='login__icon fas fa-lock'></i>
-						<input type='password' class='login__input' name='password' placeholder='Contraseña'>
-					</div>
-					<button class='button login__submit' type='submit' value='Login' name='Login'>
-						<span class='button__text'>INICIAR SESION</span>
-						<i class='button__icon fas fa-chevron-right'></i>
-					</button>				
-				</form>
-				<div class='social-login'>
-					<a href='registro.php'>Registrarse</a>
-				</div>
-			</div>
-			<div class='screen__background'>
-				<span class='screen__background__shape screen__background__shape4'></span>
-				<span class='screen__background__shape screen__background__shape3'></span>		
-				<span class='screen__background__shape screen__background__shape2'></span>
-				<span class='creen__background__shape screen__background__shape1'></span>
-			</div>		
-		</div>
-	</div>";
-} 
 
 
 ?>

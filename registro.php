@@ -24,9 +24,59 @@
         $email=$_REQUEST['email'];
         $password=$_REQUEST['password'];
 
-        Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password);
-        echo "Usuario Resgitrado correctamente";
-    
+        echo "
+        <div class='container'>
+            <div class='screen'>
+                <div class='screen__content'>
+                    <form class='login' action='registro.php' method='REQUEST'>
+                        <h1> REGISTRO </h1>
+                        <h2>" . Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password) . "</h2>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-user'></i>
+                            <input type='text' class='login__input' name='dni' placeholder='DNI'>
+                        </div>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-lock'></i>
+                            <input type='text' class='login__input' name='nombre' placeholder='Nombre'>
+                        </div>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-lock'></i>
+                            <input type='text' class='login__input' name='direccion' placeholder='Direccion'>
+                        </div>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-lock'></i>
+                            <input type='text' class='login__input' name='poblacion' placeholder='Poblacion'>
+                        </div>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-lock'></i>
+                            <input type='text' class='login__input' name='telefono' placeholder='Telefono'>
+                        </div>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-lock'></i>
+                            <input type='text' class='login__input' name='email' placeholder='Email'>
+                        </div>
+                        <div class='login__field'>
+                            <i class='login__icon fas fa-lock'></i>
+                            <input type='password' class='login__input' name='password' placeholder='Contraseña'>
+                        </div>
+                        <button class='button login__submit' type='submit' value='Registro' name='Registro'>
+                            <span class='button__text'>REGISTRARSE</span>
+                            <i class='button__icon fas fa-chevron-right'></i>
+                        </button>				
+                    </form>
+                    <div class='social-login'>
+                    <br><br><br><br>
+                    <a href='login.php'>Login</a>
+                    </div>
+                </div>
+                <div class='screen__background'>
+                    <span class='screen__background__shape screen__background__shape4'></span>
+                    <span class='screen__background__shape screen__background__shape3'></span>		
+                    <span class='screen__background__shape screen__background__shape2'></span>
+                    <span class='creen__background__shape screen__background__shape1'></span>
+                </div>		
+            </div>
+        </div>";    
 
     }else{
 
@@ -62,18 +112,16 @@
                             </div>
                             <div class='login__field'>
                                 <i class='login__icon fas fa-lock'></i>
-                                <input type='password' class='login__input' name='contraseña' placeholder='Contraseña'>
+                                <input type='password' class='login__input' name='password' placeholder='Contraseña'>
                             </div>
-                            <div class='login__field'>
-                                <i class='login__icon fas fa-lock'></i>
-                                <input type='password' class='login__input' name='' placeholder='Repetir contraseña'>
-                            </div>
-                            <button class='button login__submit' type='submit' value='Login' name='Login'>
-                                <span class='button__text'>INICIAR SESION</span>
+                            <button class='button login__submit' type='submit' value='Registro' name='Registro'>
+                                <span class='button__text'>REGISTRARSE</span>
                                 <i class='button__icon fas fa-chevron-right'></i>
                             </button>				
                         </form>
                         <div class='social-login'>
+                        <br><br>
+                        <a href='login.php'>Login</a>
                         </div>
                     </div>
                     <div class='screen__background'>
@@ -84,27 +132,6 @@
                     </div>		
                 </div>
             </div>";
-
-        echo "
-        <form action='registro.php' method='get'>
-            DNI: <br>
-            <input type='text' name='dni'> <br>
-            Nombre: <br>
-            <input type='text' name='nombre'> <br>
-            Direccion: <br>
-            <input type='text' name='direccion'> <br>
-            Poblacion: <br>
-            <input type='text' name='poblacion'> <br>
-            Telefono: <br>
-            <input type='text' name='telefono'> <br>
-            Email: <br>
-            <input type='text' name='email'> <br>
-            Contraseña: <br>
-            <input type='password' name='password'> <br>
-            Repetir Contraseña: <br>
-            <input type='password' name=''> <br> <br>
-        <input type='submit' value='Registro' name='Registro'>
-        </form>";	
     }
 
     ?> 
