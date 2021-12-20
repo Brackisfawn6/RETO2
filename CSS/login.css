@@ -12,8 +12,10 @@ h1{
 }
 
 body {
-	background: linear-gradient(90deg, #C7C5F4, #776BCC);		
-}
+    margin: 0;
+    padding: 0;
+    background-image: url('../Imagenes/fondo.jpg');
+  }
 
 .container {
 	display: flex;

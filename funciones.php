@@ -28,7 +28,7 @@ function Login($conexion,$dni,$password){
         return $mensaje;
         mysqli_close($conexion);
 
-    }
+}
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
@@ -51,9 +51,13 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
 }
 
 function ListarPizzas($conexion) {
-    mysqli_set_charset ( $conexion , 'utf8' );
+
+   /* setlocale(LC_ALL, "es_ES.utf8");
+    setlocale(LC_TIME, 'es_ES.UTF-8'); 
+
     $sql= "select * from Pizza";
     $registros=mysqli_query($conexion, $sql);
+    
     echo "<table> 
     <tr> <th>Pizzas</th> <th>Precio</th> <tr>";
     while ($datos = mysqli_fetch_assoc($registros)) {
@@ -64,7 +68,42 @@ function ListarPizzas($conexion) {
         </tr>";      
     }
 
-    echo  "</table>";
+    echo  "</table>";*/
+
+
+    //Consulta  
+    $sql="SELECT * FROM PizzeriaReto.Pizza";
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h2>Nuestras Pizzas</h2>        
+    <table> 
+    <tr>
+            <td>Pizza</td>         
+            <td>Ingredientes</td>
+            <td>Precio</td>
+    </tr>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            $sql2="select * from PizzeriaReto.Contiene where nom_pizza='$datos[nom_pizza]'";  
+
+            $registros2=mysqli_query($conexion,$sql2);
+
+            $ingredientes="";
+              
+            while ($datos2=mysqli_fetch_assoc($registros2)){
+               $ingredientes=$ingredientes . $datos2['nom_ingrediente'] . "<br>";
+            }
+
+            echo"<tr>
+            <td>$datos[nom_pizza]</td>            
+            <td>$ingredientes</td> 
+            <td>$datos[precio] € </td>
+            </tr>";
+        }   
+     
+    echo "</table>";       
 }
 
 
