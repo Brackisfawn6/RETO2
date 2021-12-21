@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> King Pizza </title>
-    <link rel="stylesheet" media="all" href="CSS/index.css" />
+    <link rel="stylesheet" media="all" href="CSS/contacto.css" />
     <link rel="shortcut icon" href="Imagenes/logo2.png" />
 </head>
 <body>
@@ -16,7 +16,7 @@
     <body>
         
     
-    <div id="container">
+    <div id="container" style="color: blue;">
         <h1>&bull; Contacta con nosotros &bull;</h1>
         <div class="underline">
     </div>
@@ -28,20 +28,23 @@
        </svg>   
     </div>
 
+    <?php
+    if (!isset($_REQUEST['enviar'])){
+    ?>
     <form action="#" method="post" id="contact_form">
         <div class="name">
           <label for="name"></label>
-          <input type="text" placeholder="Mi nombre es" name="name" id="name_input" required>
+          <input type="text" placeholder="Nombre" name="name" id="name_input" required>
         </div>
 
      <div class="email">
        <label for="email"></label>
-       <input type="email" placeholder="Mi correo es" name="email" id="email_input" required>
+       <input type="email" placeholder="Correo" name="email" id="email_input" required>
     </div>
 
      <div class="telephone">
        <label for="name"></label>
-       <input type="text" placeholder="Mi telefono es" name="telephone" id="telephone_input" required>
+       <input type="text" placeholder="Telefono" name="telephone" id="telephone_input" required>
      </div>
 
      <div class="subject">
@@ -56,13 +59,20 @@
 
     <div class="message">
       <label for="message"></label>
-      <textarea name="message" placeholder="Me gustaria hablar de" id="message_input" cols="30" rows="5" required></textarea>
+      <textarea name="message" placeholder="Descripcion" id="message_input" cols="30" rows="5" required></textarea>
     </div>
     <div class="submit">
-      <input type="submit" value="Enviar" id="form_button" />
+      <input type="submit" value="Enviar" name='enviar' id="form_button" />
     </div>
     </form><!-- // End form -->
     </div><!-- // End #container -->
+    <?php
+    }else{
+  
+        echo "<br><p>-     Mensaje enviado correctamente. Gracias             - <p><br><br>";
+
+    }
+    ?>
 
 </body>
 </html>

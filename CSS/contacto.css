@@ -12,6 +12,9 @@ body {
   background-image: rgba(105, 92, 92, 0.562);
 }
 
+div{
+  background: #fff;
+}
 
 button {
   overflow: visible;
@@ -186,6 +189,10 @@ textarea {
   color: #F2F3EB;
 }
 
+p {
+  text-align: center;
+}
+
 @media screen and (max-width: 768px) {
   #container {
     margin: 20px auto;
@@ -224,4 +231,6 @@ textarea {
   input[type='text'], [type='email'], select, textarea {
     font-size: 0.875em;
   }
+
+  
 }

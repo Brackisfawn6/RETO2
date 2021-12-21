@@ -16,12 +16,42 @@
     include "conexion.php";
     include "funciones.php";
 
-       
-    $valuePizza=$_REQUEST['elegirPizzas'];
-    $valueIng=$_REQUEST['radio1'];
+    session_start();
+    
+    for($x=0;$x <  $_SESSION["cantPizzas"] ;$x++){
 
-    echo $valuePizza;
-    echo $valueIng;
+        $selectPizza="elegirPizzas".$x;
+        $nomPizza=$_REQUEST[$selectPizza];
+        echo "$nomPizza <br>";
+
+    }
+
+    for($x=0;$x <  $_SESSION["cantPizzas"] ;$x++){
+
+        $selectIng="elegirIng".$x;
+        $nomIng=$_REQUEST[$selectIng];
+        echo "$nomIng <br>";
+
+    }
+    
+    /* 
+    for($x=0;$x <  $_SESSION["cantPizzas"] ;$x++){
+
+        $nameRadio="radio".$x;
+
+        if (isset($_REQUEST[$nameRadio])){
+            $ing=$_REQUEST[$nameRadio];
+        }else{
+            $ing="";
+        }
+        
+        echo "$ing <br>";
+    }
+    */
+          
+
+
+
 
     ?>
 

@@ -11,24 +11,17 @@
 </head>
 <body>
 
-    <?php
-
-    include "conexion.php";
-    include "funciones.php";
-
-    ?> 
 
     <form action='elegirPizza.php' method='REQUEST'> 
+    
+            <h2>SELECCIONE LA CANTIDAD DE PIZZAS: <h2>
+            <input type='number' value='0' min='0' name='numPizzas'> <br><br>
+    
+            <input type='submit' value='Siguiente' name='seleccionarPizzas' />
+                                            
+    </form>
 
-		<h2>SELECCIONE LA CANTIDAD DE PIZZAS: <h2>
-        <input type='number' value='0' min='0' name='numPizzas'> <br><br>
-
-        <input type='submit' value='Siguiente' name='seleccionarPizzas' />
-										
-	</form>
-
-
- 
+  
 
 </body>
 </html>

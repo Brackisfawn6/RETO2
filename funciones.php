@@ -109,7 +109,9 @@ function elegirPizzas($conexion,$numPizzas){
 
             for ($i=0;$i<$contador;$i++){
 
-                echo "<select name='elegirPizzas'>
+                echo "
+                <p> Pizza " . ($i+1) . ": </p>
+                <select name='elegirPizzas" . $i . "'>
                     <option value'0'>--Seleccione una Pizza--</option>";
     
                     for($x=0;$x < count($pizzas) ;$x++){
@@ -117,16 +119,30 @@ function elegirPizzas($conexion,$numPizzas){
                     }
                  
                 echo "</select>
-                <br> <p> Ingrediente extra: </p> ";
+                <p> Ingrediente extra: </p> ";
 
-                for ($y=0; $y < count ($ingrediente); $y++) {  
-                    echo "<input type='radio' name='radio1' value='" . $ingrediente[$y] . "'>";
+                /*for ($y=0; $y < count ($ingrediente); $y++) {  
+                    echo "<input type='radio' name='radio" . $i . "' value='" . $ingrediente[$y] . "'>";
                     echo $ingrediente[$y] . " ";             
-                } 
+                } */
 
-                echo "<br><br><br>";
+                echo "<select name='elegirIng" . $i . "'>
+                <option value'0'>--Seleccione un Ingrediente--</option>";
+
+                for($x=0;$x < count ($ingrediente) ;$x++){
+                    echo "<option value='".$ingrediente[$x]."'>". $ingrediente[$x] . "</option>";
+                }
+             
+                echo "</select>
+                <br>----------------------------------------------------------------------------<br>";
       
             }
+
+            session_start();
+            $_SESSION['cantPizzas'] = $i;
+
+            echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' />";
+
         }else{
             echo "<h2>Seleccione al menos una pizza</h2>
             <a href='hacerPedido.php'>Volver</a>";

@@ -16,16 +16,13 @@
     include "conexion.php";
     include "funciones.php";
 
-    
         
-    echo "<form action='consultarPedido.php' method='REQUEST'>";
+        echo "<form action='consultarPedido.php' method='REQUEST'>";
 
-    $numPizzas=$_REQUEST['numPizzas'];
-    elegirPizzas($conexion, $numPizzas);
-
-    echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' />
-
-    </form>";
+        $numPizzas=$_REQUEST['numPizzas'];
+        elegirPizzas($conexion, $numPizzas);
+    
+        echo "</form>";
 
     ?>
 
