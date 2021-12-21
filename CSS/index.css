@@ -94,3 +94,9 @@ body {
   .menu ul li a:target {
     border-bottom-color: #F44336;
   }
+  .logo img {
+
+    max-width: 100%;
+  height: auto;
+  
+  }

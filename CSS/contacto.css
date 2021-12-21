@@ -7,8 +7,11 @@ html {
 }
 
 body {
-  background: #F2F3EB;
+  margin: 0;
+  padding: 0;
+  background-image: rgba(105, 92, 92, 0.562);
 }
+
 
 button {
   overflow: visible;

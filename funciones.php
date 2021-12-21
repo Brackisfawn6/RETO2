@@ -53,13 +53,13 @@ function ListarPizzas($conexion) {
     $registros=mysqli_query($conexion,$sql);
 
     echo "
-    <h1>Nuestras Pizzas</h1>        
+    <h1>CARTA</h1>  <br>      
     <div class='datagrid'><table> 
     <thead><tr>
-            <td>Pizza</td>         
-            <td>Ingredientes</td>
-            <td>Precio</td>
-    </tr></thead>";
+            <th>Pizza</th>         
+            <th>Ingredientes</th>
+            <th>Precio</th>
+    </tr></thead><tbody>";
 
         while($datos=mysqli_fetch_assoc($registros)){
 
@@ -73,7 +73,7 @@ function ListarPizzas($conexion) {
                $ingredientes=$ingredientes . $datos2['nom_ingrediente'] . "<br>";
             }
 
-            echo"<tbody><tr>
+            echo"<tr>
             <td>$datos[nom_pizza]</td>            
             <td>$ingredientes</td> 
             <td>$datos[precio] € </td>
@@ -87,28 +87,52 @@ function ListarPizzas($conexion) {
 function elegirPizzas($conexion,$numPizzas){
 
 
-    $sql="SELECT * FROM PizzeriaReto.Pizza";
-    $registros=mysqli_query($conexion,$sql);
+        $sql="SELECT * FROM PizzeriaReto.Pizza";
+        $sql2="SELECT * FROM PizzeriaReto.Ingrediente";
+        $registros=mysqli_query($conexion,$sql);
+        $registros2=mysqli_query($conexion,$sql2);
 
         
         while($datos=mysqli_fetch_assoc($registros)){
-            $prueba[]=$datos['nom_pizza'];
+            $pizzas[]=$datos['nom_pizza'];
+        }
+
+        while($datos2=mysqli_fetch_assoc($registros2)){
+            $ingrediente[]=$datos2['nom_ingrediente'];
         }
         
         $contador=$numPizzas;
 
-        for ($i=0;$i<$contador;$i++){
+        if ($numPizzas!=0){
 
-            echo "<select name='elegirPizzas'>
-                <option value'0'>--Seleccione una Pizza--</option>";
+            echo "<h2>Seleccione las Pizzas y ingrediente extra si desea:</h2> <br> <br>";
 
-                for($x=0;$x < count($prueba) ;$x++){
-                    echo "<option value='".($x+1)."'>". $prueba[$x] . "</option>";
-                }
-             
-            echo "</select><br><br> ";
-  
+            for ($i=0;$i<$contador;$i++){
+
+                echo "<select name='elegirPizzas'>
+                    <option value'0'>--Seleccione una Pizza--</option>";
+    
+                    for($x=0;$x < count($pizzas) ;$x++){
+                        echo "<option value='".$pizzas[$x]."'>". $pizzas[$x] . "</option>";
+                    }
+                 
+                echo "</select>
+                <br> <p> Ingrediente extra: </p> ";
+
+                for ($y=0; $y < count ($ingrediente); $y++) {  
+                    echo "<input type='radio' name='radio1' value='" . $ingrediente[$y] . "'>";
+                    echo $ingrediente[$y] . " ";             
+                } 
+
+                echo "<br><br><br>";
+      
+            }
+        }else{
+            echo "<h2>Seleccione al menos una pizza</h2>
+            <a href='hacerPedido.php'>Volver</a>";
+	
         }
+        
 }
 
 

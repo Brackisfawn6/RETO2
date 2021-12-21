@@ -1,41 +1,133 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('../Imagenes/fondo.jpg');
+  background-image: url('../Imagenes/tabla-fondo.jpg');
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
 
 table {
-  border: #d80808 2px solid;
-}
-td, th{
-  border: rgb(2, 2, 2) 1px solid;
-}
-
-h1{text-align: left;
-      color:#ec1010;
+  width: 100%;
+  border-spacing: 0;
+  border-radius: 2em;
+  overflow: hidden;
 }
 
-select {text-align: left;margin:2px;}
-input {text-align: center;margin:2px;}
-input[type=submit]{
-        font-size:20px;
-        font-family:Verdana,Helvetica;
-        font-weight:bold;
-        color:white;
-        background:#638cb5;
-        border:0px;
-        width:100px;
-        height:100px;
+thead {
+ visibility: hidden;
+ position: absolute;
+ width: 0;
+ height: 0;
+}
+
+th {
+  background: #215A8E;
+  color: #fff;
+}
+
+td:nth-child(1) {
+  background: #215A8E;
+  color: #fff;
+  border-radius: 1em 1em 0 0;
+}
+
+th, td {
+  padding: 1em;
+}
+
+tr, td {
+  display: block;
+}
+
+td {
+  position: relative;
+  font-size: 25px;
+}
+
+td::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 0;
+  padding-left: 1em;
+  font-weight: 600;
+  font-size: .9em;
+  text-transform: uppercase;
+}
+
+tr {
+  margin-bottom: 1.5em;
+  border: 3px solid rgb(15, 15, 15);
+  border-radius: 1em;
+  text-align: right;
+  font-size: 30px;
+}
+
+tr:last-of-type {
+  margin-bottom: 0;
+}
+
+td:nth-child(n+2):nth-child(odd) {
+  background-color: #ddd;
+}
+
+
+@media only screen and (min-width: 768px) {
+  
+  table {
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 3px solid rgb(14, 13, 13);
   }
-  input[type=number]{
-    font-size:20px;
-    font-family:Verdana,Helvetica;
-    font-weight:bold;
-    color:white;
-    background:#638cb5;
-    border:0px;
-    width:50px;
-    height:50px;
+  
+  thead {
+    visibility: visible;
+    position: relative;
+  }
+  
+  th {
+    text-align: left;
+    text-transform: uppercase;
+    font-size: .9em;
+  }
+  
+  tr {
+    display: table-row;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+  }
+  
+  tr:nth-child(even) {
+  background-color: #ddd;
 }
-
-
+  
+  td {
+    display: table-cell;
+  }
+  
+  td::before {
+    content: none;
+  }
+  
+  td:nth-child(1) {
+    background: transparent;
+    color: #444;
+    border-radius: 0;
+  }
+  
+  td:nth-child(n+2):nth-child(odd) {
+    background-color: transparent;
+  }
+  
+  h1{
+    text-align: center;
+    background-color: #215A8E;
+    color: #fff;
+  }
+  
+}
