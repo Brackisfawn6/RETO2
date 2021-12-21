@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" media="all" href="CSS/listarpizzas.css" />
     <title>Pizzeria</title>
+    
 </head>
 <body>
 
@@ -14,7 +15,7 @@
 
     include "conexion.php";
     include "funciones.php";
-    header('Content-Type: text/html; charset=UTF-8');
+
     ListarPizzas($conexion);
 
     ?> 

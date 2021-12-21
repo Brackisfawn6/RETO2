@@ -13,22 +13,19 @@ function Login($conexion,$dni,$password){
             if($datos['DNI'] == $dni){
                     if ($datos['password'] == $password){
                         echo "<meta http-equiv='refresh' content='0 url=index.php'>";
-                    }elseif(empty($password)){
-                        $mensaje= "Faltan datos";
                     }else{
                         $mensaje= "Contraseña incorrecta";
                     }
-                }
-                else{
+            }else{
                     $mensaje = "Cliente no encontrado";
-                }
             }
         }
 
         return $mensaje;
         mysqli_close($conexion);
 
-}
+    }
+}   
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
@@ -52,37 +49,17 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
 
 function ListarPizzas($conexion) {
 
-   /* setlocale(LC_ALL, "es_ES.utf8");
-    setlocale(LC_TIME, 'es_ES.UTF-8'); 
-
-    $sql= "select * from Pizza";
-    $registros=mysqli_query($conexion, $sql);
-    
-    echo "<table> 
-    <tr> <th>Pizzas</th> <th>Precio</th> <tr>";
-    while ($datos = mysqli_fetch_assoc($registros)) {
-       echo"
-        <tr>
-            <td>$datos[nom_pizza]</td>
-            <td>$datos[precio] €</td>
-        </tr>";      
-    }
-
-    echo  "</table>";*/
-
-
-    //Consulta  
     $sql="SELECT * FROM PizzeriaReto.Pizza";
     $registros=mysqli_query($conexion,$sql);
 
     echo "
-    <h2>Nuestras Pizzas</h2>        
-    <table> 
-    <tr>
+    <h1>Nuestras Pizzas</h1>        
+    <div class='datagrid'><table> 
+    <thead><tr>
             <td>Pizza</td>         
             <td>Ingredientes</td>
             <td>Precio</td>
-    </tr>";
+    </tr></thead>";
 
         while($datos=mysqli_fetch_assoc($registros)){
 
@@ -96,14 +73,42 @@ function ListarPizzas($conexion) {
                $ingredientes=$ingredientes . $datos2['nom_ingrediente'] . "<br>";
             }
 
-            echo"<tr>
+            echo"<tbody><tr>
             <td>$datos[nom_pizza]</td>            
             <td>$ingredientes</td> 
             <td>$datos[precio] € </td>
             </tr>";
         }   
      
-    echo "</table>";       
+    echo "</tbody></table></div>";       
+
+}
+
+function elegirPizzas($conexion,$numPizzas){
+
+
+    $sql="SELECT * FROM PizzeriaReto.Pizza";
+    $registros=mysqli_query($conexion,$sql);
+
+        
+        while($datos=mysqli_fetch_assoc($registros)){
+            $prueba[]=$datos['nom_pizza'];
+        }
+        
+        $contador=$numPizzas;
+
+        for ($i=0;$i<$contador;$i++){
+
+            echo "<select name='elegirPizzas'>
+                <option value'0'>--Seleccione una Pizza--</option>";
+
+                for($x=0;$x < count($prueba) ;$x++){
+                    echo "<option value='".($x+1)."'>". $prueba[$x] . "</option>";
+                }
+             
+            echo "</select><br><br> ";
+  
+        }
 }
 
 

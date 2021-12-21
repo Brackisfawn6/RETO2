@@ -28,7 +28,7 @@
         </div>
         
         <ul>
-            <li><a id='pizzas' href='#home'>Elige tu pizza</a></li>
+            <li><a id='pizzas' href='hacerPedido.php'>Hacer Pedido</a></li>
             <li><a id='menus' href='listarPizzas.php'>Ver Nuestras Pizzas</a></li>
             <li><a id='promociones' href='#promociones'>Promociones</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>

@@ -16,7 +16,7 @@ body {
   #mmeennuu:checked ~ .menu {
     width: 500px;
     border-radius: 5px;
-    background-color: transparent;
+    background-color: white;
     border: 3px solid #000000;
     height: 180px;
   }
@@ -34,7 +34,7 @@ body {
     width: 100px;
     height: 100px;
     background-color: #000000;
-    border: 3px solid transparent;
+    border: 3px solid white;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
