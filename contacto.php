@@ -70,7 +70,7 @@
     }else{
   
         echo "<br><p>-     Mensaje enviado correctamente. Gracias             - <p><br><br>";
-
+        //mail("miguel.lopezhe@elorrieta-errekamari.com","prueba","preuba");
     }
     ?>
 
