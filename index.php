@@ -24,7 +24,6 @@
         <ul>
             <li><a id='pizzas' href='hacerPedido.php'>Hacer Pedido</a></li>
             <li><a id='menus' href='listarPizzas.php'>Ver La Carta</a></li>
-            <li><a id='promociones' href='#promociones'>Promociones</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
             <li><a id='contacto' href='contacto.php'>Contacto</a></li>
         </ul>

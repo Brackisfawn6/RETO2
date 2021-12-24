@@ -76,7 +76,7 @@ function ListarPizzas($conexion) {
             echo"<tr>
             <td>$datos[nom_pizza]</td>            
             <td>$ingredientes</td> 
-            <td>$datos[precio] € </td>
+            <td>" . number_format($datos['precio'],2,",",".") . " € </td>
             </tr>";
         }   
      
@@ -101,24 +101,26 @@ function elegirPizzas($conexion,$numPizzas){
             $ingrediente[]=$datos2['nom_ingrediente'];
         }
         
-        $contador=$numPizzas;
+        session_start();
+        $_SESSION['cantPizzas'] = $numPizzas;
 
         if ($numPizzas!=0){
 
             echo "<h2>Seleccione las Pizzas y ingrediente extra si desea:</h2> <br> <br>";
 
-            for ($i=0;$i<$contador;$i++){
+            for ($i=0;$i<$numPizzas;$i++){
 
                 echo "
                 <p> Pizza " . ($i+1) . ": </p>
                 <select name='elegirPizzas" . $i . "'>
-                    <option value'0'>--Seleccione una Pizza--</option>";
+                    <option value=0>--Seleccione una Pizza--</option>";
     
                     for($x=0;$x < count($pizzas) ;$x++){
                         echo "<option value='".$pizzas[$x]."'>". $pizzas[$x] . "</option>";
                     }
                  
                 echo "</select>
+
                 <p> Ingrediente extra: </p> ";
 
                 /*for ($y=0; $y < count ($ingrediente); $y++) {  
@@ -127,19 +129,17 @@ function elegirPizzas($conexion,$numPizzas){
                 } */
 
                 echo "<select name='elegirIng" . $i . "'>
-                <option value'0'>--Seleccione un Ingrediente--</option>";
+                <option value=0>--Seleccione un Ingrediente--</option>";
 
-                for($x=0;$x < count ($ingrediente) ;$x++){
-                    echo "<option value='".$ingrediente[$x]."'>". $ingrediente[$x] . "</option>";
-                }
+                    for($x=0;$x < count ($ingrediente) ;$x++){
+                        echo "<option value='".$ingrediente[$x]."'>". $ingrediente[$x] . "</option>";
+                    }
              
                 echo "</select>
+
                 <br>----------------------------------------------------------------------------<br>";
       
             }
-
-            session_start();
-            $_SESSION['cantPizzas'] = $i;
 
             echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' />";
 
