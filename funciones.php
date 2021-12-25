@@ -29,7 +29,7 @@ function Login($conexion,$dni,$password){
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
-    $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email',current_date(),'$password')";
+    $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email', now(),'$password')";
     
     
     if(empty($dni) || empty($nombre) || empty($direccion) || empty($poblacion) || empty($telefono) || empty($email) || empty($password)){
@@ -49,7 +49,7 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
 
 function ListarPizzas($conexion) {
 
-    $sql="SELECT * FROM PizzeriaReto.Pizza";
+    $sql="SELECT * FROM Pizza";
     $registros=mysqli_query($conexion,$sql);
 
     echo "
@@ -63,7 +63,7 @@ function ListarPizzas($conexion) {
 
         while($datos=mysqli_fetch_assoc($registros)){
 
-            $sql2="select * from PizzeriaReto.Contiene where nom_pizza='$datos[nom_pizza]'";  
+            $sql2="select * from Contiene where nom_pizza='$datos[nom_pizza]'";  
 
             $registros2=mysqli_query($conexion,$sql2);
 
@@ -82,13 +82,16 @@ function ListarPizzas($conexion) {
      
     echo "</tbody></table></div>";       
 
+    mysqli_close($conexion);  
+
+
 }
 
 function elegirPizzas($conexion,$numPizzas){
 
 
-        $sql="SELECT * FROM PizzeriaReto.Pizza";
-        $sql2="SELECT * FROM PizzeriaReto.Ingrediente";
+        $sql="SELECT * FROM Pizza";
+        $sql2="SELECT * FROM Ingrediente";
         $registros=mysqli_query($conexion,$sql);
         $registros2=mysqli_query($conexion,$sql2);
 
@@ -123,11 +126,6 @@ function elegirPizzas($conexion,$numPizzas){
 
                 <p> Ingrediente extra: </p> ";
 
-                /*for ($y=0; $y < count ($ingrediente); $y++) {  
-                    echo "<input type='radio' name='radio" . $i . "' value='" . $ingrediente[$y] . "'>";
-                    echo $ingrediente[$y] . " ";             
-                } */
-
                 echo "<select name='elegirIng" . $i . "'>
                 <option value=0>--Seleccione un Ingrediente--</option>";
 
@@ -149,8 +147,102 @@ function elegirPizzas($conexion,$numPizzas){
             <a href='hacerPedido.php'>Volver</a>";
 	
         }
-        
+        mysqli_close($conexion);  
 }
 
+function consultarPedido($conexion){
+    session_start();
 
+    $error=false;
+
+    for($x=0;$x < $_SESSION["cantPizzas"] ;$x++){
+
+        $selectPizza="elegirPizzas".$x;
+        $nomPizza=$_REQUEST[$selectPizza];
+
+        if($nomPizza != 0){
+            $pizzas[]=$nomPizza;
+        }else{
+            $error=true;
+        }
+              
+    }
+
+    for($x=0;$x < $_SESSION["cantPizzas"] ;$x++){
+
+        $selectIng="elegirIng".$x;
+        $nomIng=$_REQUEST[$selectIng];
+
+        if($nomIng != 0){
+            $ingredientes[]=$nomIng; 
+        }else{
+            $ingredientes[]="Ninguno"; 
+        }
+
+    }
+
+    if ($error != true){
+
+        echo "
+        <h1>Comprueba su compra:</h1>  <br>      
+        <div class='datagrid'><table> 
+        <thead><tr>
+                <th>Pizza</th>         
+                <th>Ingrediente extra</th>
+                <th>Precio</th>
+        </tr></thead><tbody>";
+        $total=0;
+        for ($i=0; $i < count($pizzas); $i++) { 
+
+            $sql="SELECT * FROM PizzeriaReto.Pizza where nom_pizza='" . $pizzas[$i] . "'";
+            $registros=mysqli_query($conexion,$sql);
+            
+            while($datos=mysqli_fetch_assoc($registros)){
+                $precio[]=$datos['precio'];
+            }
+    
+            echo"<tr>
+            <td>" . $pizzas[$i] . "</td>            
+            <td>" . $ingredientes[$i] . "</td> 
+            <td>" . number_format($precio[$i],2,",",".") . " € </td>
+            </tr>";
+
+            $total=$total+$precio[$i];
+
+        } 
+
+        session_start();
+        $_SESSION['importe'] = $total;
+
+        echo "<tr>
+                    <td colspan='2'><font color=#ec0b0b>TOTAL</td>
+                    <td><font color=#ec0b0b>" . number_format($total,2,",",".") . " € </td>
+              </tr>
+        </tbody></table></div> <br><br>"; 
+
+
+        echo "<form action='registrarPedido.php' method='REQUEST'>  
+        <div class='confirmar'>
+            <input type='submit' value='Confirmar Pedido' name='confirmarPedido' />
+        </div>
+        </form>";
+    }else{
+        echo "<h2>Error: Seleccione las Pizzas.</h2>";
+    }
+
+    mysqli_close($conexion);  
+          
+}
+
+function registrarPedido($conexion,$dni,$importe){
+
+    $sql="INSERT INTO Pedido (fechahora, dni_cliente, importe) VALUES (now(), '$dni' , '$importe')";
+
+    if (mysqli_query($conexion, $sql)) {
+        echo "Pedido realizado correctamente.";
+    }
+
+    mysqli_close($conexion);  
+
+}
 ?>

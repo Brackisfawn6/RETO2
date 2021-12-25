@@ -12,12 +12,15 @@ td, th{
 }
 
 h1{text-align: center;
-      color:#bc1c2a;}
+  color:#bc1c2a;}
 
 h2{text-align: left;
-    font-size:40px;
-      color:#f80808;}
-    
+  font-size:40px;
+  color:#161515;}
+
+h3{text-align: left;
+  font-size:20px;
+  color:#e71a1a;}   
 
 p{
     font-size: 20px;

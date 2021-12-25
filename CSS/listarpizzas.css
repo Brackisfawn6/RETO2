@@ -10,9 +10,27 @@ body {
   box-sizing: border-box;
 }
 
+input {text-align: center;margin:4px;}
+input[type=submit]{
+        text-align: center;
+        font-size:25px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        width:280px;
+        height:55px;
+       }
+       .confirmar {
+        margin: 1rem;
+        padding: 1rem;
+        text-align: center;
+      }
+
 h2{text-align: left;
-  font-size:40px;
-    color:#f80808;}
+  font-size:30px;
+    color:#e6510b;}
 
 table {
   width: 100%;
