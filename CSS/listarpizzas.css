@@ -10,6 +10,9 @@ body {
   box-sizing: border-box;
 }
 
+h2{text-align: left;
+  font-size:40px;
+    color:#f80808;}
 
 table {
   width: 100%;

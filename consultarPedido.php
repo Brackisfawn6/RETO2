@@ -53,7 +53,7 @@
         <div class='datagrid'><table> 
         <thead><tr>
                 <th>Pizza</th>         
-                <th>Ingrediente</th>
+                <th>Ingrediente extra</th>
                 <th>Precio</th>
         </tr></thead><tbody>";
         $total=0;

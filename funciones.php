@@ -106,7 +106,7 @@ function elegirPizzas($conexion,$numPizzas){
 
         if ($numPizzas!=0){
 
-            echo "<h2>Seleccione las Pizzas y ingrediente extra si desea:</h2> <br> <br>";
+            echo "<h2>Seleccione las Pizzas y ingrediente extra si desea:</h2>";
 
             for ($i=0;$i<$numPizzas;$i++){
 
@@ -141,7 +141,8 @@ function elegirPizzas($conexion,$numPizzas){
       
             }
 
-            echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' />";
+            echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>";   
+            echo "<a href='hacerPedido.php'> Volver </a>";
 
         }else{
             echo "<h2>Seleccione al menos una pizza</h2>

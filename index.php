@@ -10,6 +10,10 @@
 </head>
 <body>
 
+    <div class="logo">
+	    <img src="Imagenes/banner2.png" alt="" width="100%" height="100%">
+	</div>
+
     <input type='checkbox' id='mmeennuu'>
 
     <label class='menu' for='mmeennuu'>
@@ -30,9 +34,7 @@
 
     </label>
 
-    <div class="logo">
-	    <img src="Imagenes/banner2.png" alt="" width="100%" height="100%">
-	</div>
+ 
     
 
 </body>
