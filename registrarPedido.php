@@ -19,7 +19,7 @@
 
     session_start();
  
-    $dni="79268079M";
+    $dni="123";
     $importe=$_SESSION["importe"];
 
     registrarPedido($conexion,$dni,$importe);

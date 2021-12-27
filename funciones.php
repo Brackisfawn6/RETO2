@@ -4,27 +4,34 @@ function Login($conexion,$dni,$password){
 
     $sql="SELECT * FROM Cliente";
     $registros=mysqli_query($conexion,$sql);
-    
-    while ($datos = mysqli_fetch_assoc($registros)){
 
-        if(empty($dni)){
-            $mensaje = "Faltan datos";
-        }else{
+    $encontrar=false;
+
+    if(empty($dni)){
+        $mensaje = "Faltan datos";
+    }else{
+        while ($datos = mysqli_fetch_assoc($registros)){
+
+            echo "<br>" . $datos['DNI'];
             if($datos['DNI'] == $dni){
+                $encontrar=true;
                     if ($datos['password'] == $password){
                         echo "<meta http-equiv='refresh' content='0 url=index.php'>";
                     }else{
-                        $mensaje= "Contraseña incorrecta";
+                        $mensaje= "Contraseña incorrecta";  
                     }
-            }else{
-                    $mensaje = "Cliente no encontrado";
+         
             }
         }
+        if($encontrar == false){
+            $mensaje = "Cliente no encontrado";
+        }
+    }  
 
-        return $mensaje;
-        mysqli_close($conexion);
-
-    }
+    return $mensaje;
+    mysqli_close($conexion);
+    
+    
 }   
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
@@ -211,7 +218,6 @@ function consultarPedido($conexion){
 
         } 
 
-        session_start();
         $_SESSION['importe'] = $total;
 
         echo "<tr>
@@ -240,6 +246,8 @@ function registrarPedido($conexion,$dni,$importe){
 
     if (mysqli_query($conexion, $sql)) {
         echo "Pedido realizado correctamente.";
+    }else{
+        echo mysqli_connect_error();
     }
 
     mysqli_close($conexion);  
