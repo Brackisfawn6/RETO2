@@ -29,7 +29,7 @@ function Login($conexion,$dni,$password){
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
-    $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email', now(),'$password')";
+    $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email', now(),'$password',NULL,0)";
     
     
     if(empty($dni) || empty($nombre) || empty($direccion) || empty($poblacion) || empty($telefono) || empty($email) || empty($password)){
