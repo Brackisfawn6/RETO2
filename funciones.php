@@ -15,7 +15,12 @@ function Login($conexion,$dni,$password){
             if($datos['DNI'] == $dni){
                 $encontrar=true;
                     if ($datos['password'] == $password){
-                        echo "<meta http-equiv='refresh' content='0 url=index.php'>";
+                        echo "<meta http-equiv='refresh' content='0 url=index.php'>";    
+                        if(!isset($_SESSION)) 
+                        { 
+                            session_start(); 
+                        }          
+                        $_SESSION["usuario"]= $datos['DNI'];
                     }else{
                         $mensaje= "Contraseña incorrecta";  
                     }
@@ -107,7 +112,10 @@ function elegirPizzas($conexion,$numPizzas){
             $ingrediente[]=$datos2['nom_ingrediente'];
         }
         
-        session_start();
+        if(!isset($_SESSION)) 
+        { 
+            session_start(); 
+        } 
         $_SESSION['cantPizzas'] = $numPizzas;
 
         if ($numPizzas!=0){
@@ -237,7 +245,7 @@ function consultarPedido($conexion){
           
 }
 
-function registrarPedido($conexion,$dni,$importe){
+function anadirPedido($conexion,$dni,$importe){
 
     $sql="INSERT INTO Pedido (fechahora, dni_cliente, importe) VALUES (now(), '$dni' , '$importe')";
 
@@ -248,6 +256,10 @@ function registrarPedido($conexion,$dni,$importe){
     }
 
     mysqli_close($conexion);  
+
+}
+
+function anadirLineaPedido($conexion){
 
 }
 ?>

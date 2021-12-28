@@ -14,6 +14,17 @@
 	    <img src="Imagenes/banner2.png" alt="" width="100%" height="100%">
 	</div>
 
+    <?php
+      if(!isset($_SESSION)) 
+      { 
+            session_start(); 
+      } 
+      if($_SESSION["usuario"] != ""){
+            echo "Session iniciada con el usuario con DNI: " . $_SESSION["usuario"];
+      }
+        
+    ?>
+
     <input type='checkbox' id='mmeennuu'>
 
     <label class='menu' for='mmeennuu'>
@@ -33,6 +44,9 @@
         </ul>
 
     </label>
+
+    
+  
 
  
     

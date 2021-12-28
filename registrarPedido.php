@@ -22,7 +22,8 @@
     $dni="123";
     $importe=$_SESSION["importe"];
 
-    registrarPedido($conexion,$dni,$importe);
+    anadirPedido($conexion,$dni,$importe);
+      
 
     ?> 
 
