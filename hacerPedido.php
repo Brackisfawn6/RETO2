@@ -22,7 +22,8 @@
         } 
 
         if ($_SESSION["usuario"] == ""){
-            echo "Tienes que iniciar sesion para realizar un pedido";
+            echo "<h2>Tienes que iniciar sesion para realizar un pedido <br>
+            <a href='login.php'> Iniciar Sesion </></h2>";
         }else{
 
             if (isset($_REQUEST['seleccionarPizzas'])){

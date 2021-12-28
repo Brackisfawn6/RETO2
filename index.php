@@ -19,10 +19,16 @@
       { 
             session_start(); 
       } 
-      if($_SESSION["usuario"] != ""){
-            echo "Session iniciada con el usuario con DNI: " . $_SESSION["usuario"];
+      if (isset($_REQUEST['Cerrar'])){
+        $_SESSION["usuario"] = "";
       }
-        
+      if($_SESSION["usuario"] != ""){
+            echo "<h2>Session iniciada con el usuario con DNI: " . $_SESSION["usuario"] . "</h2>";
+            echo "<h2><form action='index.php' method='post'>
+            <input type='submit' value='Cerrar Sesion' name='Cerrar'/>
+            </form></h2>";  
+      }
+       
     ?>
 
     <input type='checkbox' id='mmeennuu'>
