@@ -12,7 +12,6 @@ function Login($conexion,$dni,$password){
     }else{
         while ($datos = mysqli_fetch_assoc($registros)){
 
-            echo "<br>" . $datos['DNI'];
             if($datos['DNI'] == $dni){
                 $encontrar=true;
                     if ($datos['password'] == $password){
@@ -20,7 +19,6 @@ function Login($conexion,$dni,$password){
                     }else{
                         $mensaje= "Contraseña incorrecta";  
                     }
-         
             }
         }
         if($encontrar == false){
@@ -30,14 +28,12 @@ function Login($conexion,$dni,$password){
 
     return $mensaje;
     mysqli_close($conexion);
-    
-    
+      
 }   
 
 function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password){
 
     $sql="INSERT INTO Cliente values ('$dni','$nombre','$direccion','$poblacion','$telefono','$email', now(),'$password',NULL,0)";
-    
     
     if(empty($dni) || empty($nombre) || empty($direccion) || empty($poblacion) || empty($telefono) || empty($email) || empty($password)){
         $mensaje = "Rellene todos los campos.";
@@ -49,7 +45,6 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
     }
 
     return $mensaje;
-    
     mysqli_close($conexion);  
 
 }
@@ -71,13 +66,16 @@ function ListarPizzas($conexion) {
         while($datos=mysqli_fetch_assoc($registros)){
 
             $sql2="select * from Contiene where nom_pizza='$datos[nom_pizza]'";  
-
             $registros2=mysqli_query($conexion,$sql2);
 
             $ingredientes="";
               
             while ($datos2=mysqli_fetch_assoc($registros2)){
-               $ingredientes=$ingredientes . $datos2['nom_ingrediente'] . "<br>";
+                $sql3="select * from Ingrediente where nom_ingrediente='$datos2[nom_ingrediente]'";
+                $registros3=mysqli_query($conexion,$sql3);
+                while ($datos3=mysqli_fetch_assoc($registros3)){
+                $ingredientes=$ingredientes . $datos2['nom_ingrediente'] . " (" . $datos3['unidad_medida'] . ", " . $datos3['tipo'] . ") <br>";
+                }
             }
 
             echo"<tr>
@@ -91,7 +89,6 @@ function ListarPizzas($conexion) {
 
     mysqli_close($conexion);  
 
-
 }
 
 function elegirPizzas($conexion,$numPizzas){
@@ -101,8 +98,7 @@ function elegirPizzas($conexion,$numPizzas){
         $sql2="SELECT * FROM Ingrediente";
         $registros=mysqli_query($conexion,$sql);
         $registros2=mysqli_query($conexion,$sql2);
-
-        
+     
         while($datos=mysqli_fetch_assoc($registros)){
             $pizzas[]=$datos['nom_pizza'];
         }
@@ -154,6 +150,7 @@ function elegirPizzas($conexion,$numPizzas){
             <a href='hacerPedido.php'>Volver</a>";
 	
         }
+
         mysqli_close($conexion);  
 }
 
