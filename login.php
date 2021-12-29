@@ -42,7 +42,8 @@
 						</form>
 						<div class='social-login'>
 						<br><br><br><br>
-							<a href='registro.php'>Registrarse</a>						
+							<a href='registro.php'>Registrarse</a>	 &nbsp; 
+							<a href='index.php'> Volver </a>					
 						</div>
 					</div>
 					<div class='screen__background'>
@@ -79,7 +80,8 @@
 				</form>
 				<div class='social-login'>
 					<br><br><br><br>
-					<a href='registro.php'>Registrarse</a>				
+					<a href='registro.php'>Registrarse</a>  &nbsp; 
+					<a href='index.php'>Volver</a>			
 				</div>
 			</div>
 			<div class='screen__background'>

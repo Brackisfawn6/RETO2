@@ -68,6 +68,8 @@
                     <div class='social-login'>
                     <br><br><br><br><br>
                     <a href='login.php'>Login</a>
+                    &nbsp; 
+                    <a href='index.php'> Volver </a>			
                     </div>
                 </div>
                 <div class='screen__background'>
@@ -123,6 +125,8 @@
                     <div class='social-login'>
                     <br><br><br><br><br>
                     <a href='login.php'>Login</a>
+                    &nbsp; 
+                    <a href='index.php'> Volver </a>			
                     </div>
                 </div>
                 <div class='screen__background'>

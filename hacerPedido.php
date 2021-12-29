@@ -22,8 +22,9 @@
         } 
 
         if ($_SESSION["usuario"] == ""){
-            echo "<h2>Tienes que iniciar sesion para realizar un pedido <br>
-            <a href='login.php'> Iniciar Sesion </></h2>";
+            echo "<fieldset><h2>Tienes que iniciar sesion para realizar un pedido. <br><br>
+            <a href='login.php'> Iniciar Sesion </a>  &nbsp; &nbsp; &nbsp;
+            <a href='index.php'>Volver</a> </h2></fieldset>";
         }else{
 
             if (isset($_REQUEST['seleccionarPizzas'])){
@@ -31,12 +32,13 @@
 
                 if ($numPizzas == 0){
                     echo "
-                    <form action='#' method='REQUEST'>  
+                    <fieldset><form action='#' method='REQUEST'>  
                             <h2>SELECCIONE LA CANTIDAD DE PIZZAS (Max 100): <h2>
                             <h3>Seleccione al menos una pizza</h3>
                             <input type='number' value='0' min='0' max='100' name='numPizzas'> <br><br>
-                            <input type='submit' value='Siguiente' name='seleccionarPizzas' />
-                    </form>";
+                            <input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>
+                            <a href='index.php'>Volver</a> 
+                    </form></fieldset>";
 
                 }else{
                     
@@ -48,13 +50,14 @@
 
             } else {
                 echo "
-                <form action='#' method='REQUEST'> 
-                
+                <fieldset><form action='#' method='REQUEST'>  
                         <h2>SELECCIONE LA CANTIDAD DE PIZZAS (Max 100): <h2>
+                        <h3></h3>
                         <input type='number' value='0' min='0' max='100' name='numPizzas'> <br><br>
-                        <input type='submit' value='Siguiente' name='seleccionarPizzas' />
+                        <input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>
+                        <a href='index.php'>Volver</a> 
+                </form></fieldset>";
 
-                </form>";
             }
       
         }

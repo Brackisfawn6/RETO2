@@ -16,11 +16,11 @@
     include "conexion.php";
     include "funciones.php";
 
-
+    
     consultarPedido($conexion);
 
     ?>
-
+ 
  	
 </body>
 </html>

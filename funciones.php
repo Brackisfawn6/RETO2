@@ -120,7 +120,7 @@ function elegirPizzas($conexion,$numPizzas){
 
         if ($numPizzas!=0){
 
-            echo "<h2>Seleccione las Pizzas y ingrediente extra si desea:</h2>";
+            echo "<fieldset><h2>Seleccione las Pizzas y ingrediente extra si desea:</h2>";
 
             for ($i=0;$i<$numPizzas;$i++){
 
@@ -155,7 +155,7 @@ function elegirPizzas($conexion,$numPizzas){
 
         }else{
             echo "<h2>Seleccione al menos una pizza</h2>
-            <a href='hacerPedido.php'>Volver</a>";
+            <a href='hacerPedido.php'>Volver</a></fieldset>";
 	
         }
 
@@ -238,7 +238,7 @@ function consultarPedido($conexion){
         </div>
         </form>";
     }else{
-        echo "<h2>Error: Seleccione las Pizzas.</h2>";
+        echo "<fieldset><h2>Error: Seleccione las Pizzas.</h2></fieldset> ";
     }
 
     mysqli_close($conexion);  
@@ -250,7 +250,17 @@ function anadirPedido($conexion,$dni,$importe){
     $sql="INSERT INTO Pedido (fechahora, dni_cliente, importe) VALUES (now(), '$dni' , '$importe')";
 
     if (mysqli_query($conexion, $sql)) {
-        echo "Pedido realizado correctamente.";
+        echo "<fieldset>
+        <h2>Pedido realizado correctamente.<h2>
+        
+        <form action='hacerPedido.php' method='post'>
+        <input type='submit' value='Realizar otro Pedido'/>
+        </form>
+        <form action='index.php' method='post'>
+        <input type='submit' value='Volver al Inicio'/>
+        </form>
+
+        </fieldset>";
     }else{
         echo mysqli_connect_error();
     }
