@@ -29,7 +29,7 @@
         <div class='container'>
             <div class='screen'>
                 <div class='screen__content'>
-                    <form class='login' action='registro.php' method='REQUEST'>
+                    <form class='login' action='registro.php' method='post'>
                         <h1> REGISTRO </h1>
                         <h2>" . Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$email,$password) . "</h2>
                         <div class='login__field'>
@@ -87,7 +87,7 @@
         <div class='container'>
             <div class='screen'>
                 <div class='screen__content'>
-                    <form class='login' action='registro.php' method='REQUEST'>
+                    <form class='login' action='registro.php' method='post'>
                         <h1> REGISTRO </h1>
                         <div class='login__field'>
                             <i class='login__icon fas fa-user'></i>

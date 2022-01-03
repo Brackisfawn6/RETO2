@@ -24,7 +24,7 @@
 			<div class='container'>
 				<div class='screen'>
 					<div class='screen__content'>
-						<form class='login' action='login.php' method='REQUEST'>
+						<form class='login' action='login.php' method='post'>
 							<h1> LOGIN </h1>
 							<h2>" . Login($conexion,$dni,$password) . "</h2>
 							<div class='login__field'>
@@ -63,7 +63,7 @@
 	<div class='container'>
 		<div class='screen'>
 			<div class='screen__content'>
-				<form class='login' action='login.php' method='REQUEST'>
+				<form class='login' action='login.php' method='post'>
 				<h1> LOGIN </h1>
 					<div class='login__field'>
 						<i class='login__icon fas fa-user'></i>

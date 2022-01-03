@@ -20,7 +20,7 @@ function Login($conexion,$dni,$password){
                         { 
                             session_start(); 
                         }          
-                        $_SESSION["usuario"]= $datos['DNI'];
+                        $_SESSION["usuario"]= $datos['nombre'];
                     }else{
                         $mensaje= "Contraseña incorrecta";  
                     }
@@ -163,7 +163,10 @@ function elegirPizzas($conexion,$numPizzas){
 }
 
 function consultarPedido($conexion){
-    session_start();
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    }    
 
     $error=false;
 
@@ -224,6 +227,8 @@ function consultarPedido($conexion){
         } 
 
         $_SESSION['importe'] = $total;
+        $_SESSION['pizzas'] = $pizzas;
+        $_SESSION['ingredientes'] = $ingredientes;
 
         echo "<tr>
                     <td colspan='2'><font color=#ec0b0b>TOTAL</td>
@@ -232,7 +237,7 @@ function consultarPedido($conexion){
         </tbody></table></div> <br><br>"; 
 
 
-        echo "<form action='registrarPedido.php' method='REQUEST'>  
+        echo "<form action='registrarPedido.php' method='post'>  
         <div class='confirmar'>
             <input type='submit' value='Confirmar Pedido' name='confirmarPedido' />
         </div>
@@ -269,7 +274,14 @@ function anadirPedido($conexion,$dni,$importe){
 
 }
 
-function anadirLineaPedido($conexion){
+function anadirLineaPedido(){
+
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    }    
+    $sql="SELECT num_pedido FROM pedido ORDER BY num_pedido DESC LIMIT 1";
+    print_r($_SESSION["pizzas"]);
 
 }
 ?>

@@ -23,7 +23,7 @@
         $_SESSION["usuario"] = "";
       }
       if($_SESSION["usuario"] != ""){
-            echo "<fieldset><h2>Session iniciada con el usuario con DNI: " . $_SESSION["usuario"] . "</h2>";
+            echo "<fieldset><h2>Session iniciada con el usuario: " . ucwords($_SESSION["usuario"]) . "</h2>";
             echo "<h2><form action='index.php' method='post'>
             <input type='submit' value='Cerrar Sesion' name='Cerrar'/>
             </form></h2></fieldset>";  

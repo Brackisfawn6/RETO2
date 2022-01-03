@@ -19,11 +19,11 @@
 
     session_start();
  
-    $dni="123";
+    $dni=$_SESSION["usuario"];
     $importe=$_SESSION["importe"];
 
     anadirPedido($conexion,$dni,$importe);
-      
+    //anadirLineaPedido();
 
     ?> 
 

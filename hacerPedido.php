@@ -32,7 +32,7 @@
 
                 if ($numPizzas == 0){
                     echo "
-                    <fieldset><form action='#' method='REQUEST'>  
+                    <fieldset><form action='#' method='post'>  
                             <h2>SELECCIONE LA CANTIDAD DE PIZZAS (Max 100): <h2>
                             <h3>Seleccione al menos una pizza</h3>
                             <input type='number' value='0' min='0' max='100' name='numPizzas'> <br><br>
@@ -42,7 +42,7 @@
 
                 }else{
                     
-                    echo "<form action='consultarPedido.php' method='REQUEST'>";
+                    echo "<form action='consultarPedido.php' method='post'>";
                         elegirPizzas($conexion, $numPizzas);
                     echo "</form>";
                 }
@@ -50,7 +50,7 @@
 
             } else {
                 echo "
-                <fieldset><form action='#' method='REQUEST'>  
+                <fieldset><form action='#' method='post'>  
                         <h2>SELECCIONE LA CANTIDAD DE PIZZAS (Max 100): <h2>
                         <h3></h3>
                         <input type='number' value='0' min='0' max='100' name='numPizzas'> <br><br>
