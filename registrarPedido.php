@@ -17,14 +17,8 @@
     include "conexion.php";
     include "funciones.php";
 
-    session_start();
- 
-    $dni=$_SESSION["usuario"];
-    $importe=$_SESSION["importe"];
-
-    anadirPedido($conexion,$dni,$importe);
-    //anadirLineaPedido();
-
+    anadirPedido($conexion);
+    
     ?> 
 
 </body>

@@ -21,6 +21,7 @@ function Login($conexion,$dni,$password){
                             session_start(); 
                         }          
                         $_SESSION["usuario"]= $datos['nombre'];
+                        $_SESSION["dni"]= $datos['DNI'];
                     }else{
                         $mensaje= "Contraseña incorrecta";  
                     }
@@ -46,7 +47,7 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
         $mensaje = "Este DNI ya esta registrado";
     } else {
         $mensaje = "Usuario registrado correctamente.";
-        $registros=mysqli_query($conexion,$sql);
+        mysqli_query($conexion,$sql);
     }
 
     return $mensaje;
@@ -243,14 +244,23 @@ function consultarPedido($conexion){
         </div>
         </form>";
     }else{
-        echo "<fieldset><h2>Error: Seleccione las Pizzas.</h2></fieldset> ";
+        echo "<fieldset><h2>Error: Seleccione las Pizzas.<br>
+        <a href='hacerPedido.php'>Volver</a></h2></fieldset> ";
     }
 
     mysqli_close($conexion);  
           
 }
 
-function anadirPedido($conexion,$dni,$importe){
+function anadirPedido($conexion){
+
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    }    
+
+    $dni=$_SESSION["dni"];
+    $importe=$_SESSION["importe"];
 
     $sql="INSERT INTO Pedido (fechahora, dni_cliente, importe) VALUES (now(), '$dni' , '$importe')";
 
@@ -270,18 +280,37 @@ function anadirPedido($conexion,$dni,$importe){
         echo mysqli_connect_error();
     }
 
+    $sql2="SELECT * FROM pedido ORDER BY num_pedido DESC LIMIT 1";
+    $registros2=mysqli_query($conexion,$sql2);
+    while ($datos = mysqli_fetch_assoc($registros2)){
+        $num_pedido=$datos['num_pedido'];
+    }
+
+    $_SESSION["num_pedido"]=$num_pedido;
+
+    $pizzas=$_SESSION["pizzas"];
+    $contar=array_count_values($pizzas);
+
+    for ($i=0; $i < count($pizzas); $i++) { 
+        $nom_pizza=$pizzas[$i];
+        $unidades=$contar[$pizzas[$i]];
+        $sql="INSERT INTO LineaPedido values ('$num_pedido','$nom_pizza',$unidades,null,0)";
+        mysqli_query($conexion,$sql);
+    }
+
     mysqli_close($conexion);  
 
 }
 
-function anadirLineaPedido(){
+function validarDni($dni){
+    $letra = substr($dni, -1);
+    $numeros = substr($dni, 0, -1);
+    $valido;
+    if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    }    
-    $sql="SELECT num_pedido FROM pedido ORDER BY num_pedido DESC LIMIT 1";
-    print_r($_SESSION["pizzas"]);
-
-}
 ?>
