@@ -27,8 +27,41 @@ input[type=submit]{
         padding: 1rem;
         text-align: center;
       }
-
-h2{text-align: left;
+      input[type=text]{
+        text-align: center;
+        font-size:25px;
+        font-family:Verdana,Helvetica;
+        border:0px;
+        width:280px;
+        height:55px;
+       }
+       .confirmar {
+        margin: 1rem;
+        padding: 1rem;
+        text-align: center;
+      }
+      input[type=number]{
+        text-align: center;
+        font-size:25px;
+        font-family:Verdana,Helvetica;
+        border:0px;
+        width:280px;
+        height:55px;
+       }
+       .confirmar {
+        margin: 1rem;
+        padding: 1rem;
+        text-align: center;
+      }
+      select{
+        text-align: center;
+        font-size:25px;
+        font-family:Verdana,Helvetica;
+        border:0px;
+        width:350px;
+        height:55px;
+       }
+h2{text-align: center;
   font-size:30px;
     color:#e6510b;}
 
@@ -93,7 +126,7 @@ tr:last-of-type {
 }
 
 td:nth-child(n+2):nth-child(odd) {
-  background-color: #ddd;
+  background-color: rgb(9, 207, 241);
 }
 
 
@@ -123,8 +156,11 @@ td:nth-child(n+2):nth-child(odd) {
     text-align: left;
   }
   
-  tr:nth-child(even) {
+  tr:nth-child(odd) {
   background-color: #ddd;
+}
+tr:nth-child(even) {
+  background-color: grey;
 }
   
   td {
@@ -150,5 +186,7 @@ td:nth-child(n+2):nth-child(odd) {
     background-color: #215A8E;
     color: #fff;
   }
+
+  fieldset{text-align: center;background-color: #0ae6ee;}
   
 }

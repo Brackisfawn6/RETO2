@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> King Pizza </title>
-    <link rel="stylesheet" media="all" href="CSS/index.css" />
+    <link rel="stylesheet" media="all" href="CSS/index2.css" />
     <link rel="shortcut icon" href="Imagenes/logo2.png" />
 </head>
 <body>
@@ -43,20 +43,24 @@
         </div>
         
         <ul>
-            <li><a id='pizzas' href='hacerPedido.php'>Hacer Pedido</a></li>
+            <li><a id='pizzas' href='listarClientes.php'>Ver Clientes</a></li>
+            <li><a id='pizzas' href='listarPedidos.php'>Ver Pedidos</a></li>
+            <li><a id='pizzas' href='anadirPizzas.php'>Añadir Pizzas</a></li>
+            <li><a id='pizzas' href='borrarPizzas.php'>Borrar Pizzas</a></li>
+            <li><a id='pizzas' href='anadirIngredientes.php'>Añadir Ingredientes</a></li>
+            <li><a id='pizzas' href='borrarIngredientes.php'>Borrar Ingredientes</a></li>
             <li><a id='menus' href='listarPizzas.php'>Ver La Carta</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
-            <li><a id='contacto' href='contacto.php'>Contacto</a></li>
         </ul>
 
     </label>
+
 
     <br><br><img src="Imagenes/ibai3.png" alt="" width="60%" height="60%"> <br><br><br><br><br><br><br><br>
 
     <div class="footer">
         <p>Copyright © 2022 - Página Web realizada por Miguel López | Contacto: miguel.lopezhe@elorrieta-errekamari.com<br></p>
     </div>
-
 
  
     

@@ -9,28 +9,41 @@ function Login($conexion,$dni,$password){
 
     if(empty($dni)){
         $mensaje = "Faltan datos";
-    }else{
-        while ($datos = mysqli_fetch_assoc($registros)){
-
-            if($datos['DNI'] == $dni){
-                $encontrar=true;
-                    if ($datos['password'] == $password){
-                        echo "<meta http-equiv='refresh' content='0 url=index.php'>";    
-                        if(!isset($_SESSION)) 
-                        { 
-                            session_start(); 
-                        }          
-                        $_SESSION["usuario"]= $datos['nombre'];
-                    }else{
-                        $mensaje= "Contraseña incorrecta";  
-                    }
+    }/*elseif (validarDni($dni) == false){
+        $mensaje = "El formato del DNI es incorrecto.";
+    }*/
+    else{
+        if($dni == 'admin' &&  $password == 'admin'){
+            echo "<meta http-equiv='refresh' content='0 url=index2.php'>";    
+            if(!isset($_SESSION)) 
+            { 
+                session_start(); 
+            }          
+            $_SESSION["usuario"]= "administrador";
+            $_SESSION["dni"]= "admin";
+        }else{
+            while ($datos = mysqli_fetch_assoc($registros)){         
+                if($datos['DNI'] == $dni){
+                    $encontrar=true;
+                        if ($datos['password'] == $password){
+                            echo "<meta http-equiv='refresh' content='0 url=index.php'>";    
+                            if(!isset($_SESSION)) 
+                            { 
+                                session_start(); 
+                            }          
+                            $_SESSION["usuario"]= $datos['nombre'];
+                            $_SESSION["dni"]= $datos['DNI'];
+                        }else{
+                            $mensaje= "Contraseña incorrecta";  
+                        }
+                }
             }
-        }
-        if($encontrar == false){
-            $mensaje = "Cliente no encontrado";
-        }
-    }  
-
+            if($encontrar == false){
+                $mensaje = "Cliente no encontrado";
+            }
+        }  
+    }
+       
     return $mensaje;
     mysqli_close($conexion);
       
@@ -42,11 +55,13 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
     
     if(empty($dni) || empty($nombre) || empty($direccion) || empty($poblacion) || empty($telefono) || empty($email) || empty($password)){
         $mensaje = "Rellene todos los campos.";
-    }elseif (!mysqli_query($conexion, $sql)) {
-        $mensaje = "Este DNI ya esta registrado";
-    } else {
+    }elseif(validarDni($dni) == false){
+        $mensaje = "El formato del DNI es incorrecto.";
+    }elseif(!mysqli_query($conexion, $sql)) {
+        $mensaje = "Este DNI ya esta registrado.";
+    }else {
         $mensaje = "Usuario registrado correctamente.";
-        $registros=mysqli_query($conexion,$sql);
+        mysqli_query($conexion,$sql);
     }
 
     return $mensaje;
@@ -151,11 +166,11 @@ function elegirPizzas($conexion,$numPizzas){
             }
 
             echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>";   
-            echo "<a href='hacerPedido.php'> Volver </a>";
+            echo "<h2><a href='hacerPedido.php'> Volver </a></h2>";
 
         }else{
-            echo "<h2>Seleccione al menos una pizza</h2>
-            <a href='hacerPedido.php'>Volver</a></fieldset>";
+            echo "<h2>Seleccione al menos una pizza
+            <a href='hacerPedido.php'>Volver</a></h2></fieldset>";
 	
         }
 
@@ -243,14 +258,23 @@ function consultarPedido($conexion){
         </div>
         </form>";
     }else{
-        echo "<fieldset><h2>Error: Seleccione las Pizzas.</h2></fieldset> ";
+        echo "<fieldset><h2>Error: Seleccione las Pizzas.<br><br>
+        <a href='hacerPedido.php'>Volver</a></h2></fieldset> ";
     }
 
     mysqli_close($conexion);  
           
 }
 
-function anadirPedido($conexion,$dni,$importe){
+function anadirPedido($conexion){
+
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    }    
+
+    $dni=$_SESSION["dni"];
+    $importe=$_SESSION["importe"];
 
     $sql="INSERT INTO Pedido (fechahora, dni_cliente, importe) VALUES (now(), '$dni' , '$importe')";
 
@@ -270,18 +294,212 @@ function anadirPedido($conexion,$dni,$importe){
         echo mysqli_connect_error();
     }
 
+    $sql2="SELECT * FROM pedido ORDER BY num_pedido DESC LIMIT 1";
+    $registros2=mysqli_query($conexion,$sql2);
+    while ($datos = mysqli_fetch_assoc($registros2)){
+        $num_pedido=$datos['num_pedido'];
+    }
+
+    $_SESSION["num_pedido"]=$num_pedido;
+
+    $pizzas=$_SESSION["pizzas"];
+    $contar=array_count_values($pizzas);
+
+    for ($i=0; $i < count($pizzas); $i++) { 
+        $nom_pizza=$pizzas[$i];
+        $unidades=$contar[$pizzas[$i]];
+        $sql="INSERT INTO LineaPedido values ('$num_pedido','$nom_pizza',$unidades,null,0)";
+        mysqli_query($conexion,$sql);
+    }
+
     mysqli_close($conexion);  
 
 }
 
-function anadirLineaPedido(){
+function validarDni($dni){
 
-    if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    }    
-    $sql="SELECT num_pedido FROM pedido ORDER BY num_pedido DESC LIMIT 1";
-    print_r($_SESSION["pizzas"]);
+    $letra = substr($dni, -1);
+    $numeros = substr($dni, 0, -1);
+    $valido;
+    if (substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra && strlen($letra) == 1 && strlen ($numeros) == 8 ){
+      return true;
+    }else{
+      return false;
+    }
+}
+
+function listarClientes($conexion){
+
+    error_reporting(0);
+  
+    $DNI1=$_REQUEST['dni'];
+
+    if($DNI1 == ""){
+        $sql="SELECT * FROM Cliente";
+    }else{
+        $sql="SELECT * FROM Cliente where DNI='$DNI1'";
+    }
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h1>CLIENTES</h1>  <br>  
+    
+    <fieldset><form action='listarClientes.php' method='post'>
+    <input type='text' placeholder='DNI' name='dni'/>
+    <input type='submit' value='Buscar' name='Buscar'/>
+    </form></fieldset> <br>
+
+    <div class='datagrid'><table>
+    <thead><tr>
+            <th>DNI</th>         
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Poblacion</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Fecha&nbsp&nbspAlta</th>
+            <th>Contraseña</th>
+            <th>Ultimo&nbsp&nbspPedido</th>
+            <th>Cantidad de Pedidos</th>
+    </tr></thead><tbody>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            echo"<tr>
+            <td>$datos[DNI]</td>    
+            <td>$datos[nombre]</td>  
+            <td>$datos[direccion]</td>  
+            <td>$datos[poblacion]</td>  
+            <td>$datos[telefono]</td>          
+            <td>$datos[email]</td>  
+            <td>$datos[fecha_alta]</td>  
+            <td>$datos[password]</td>  
+            <td>$datos[ultimo_pedido]</td>  
+            <td>$datos[num_pedidos]</td>  
+            </tr>";
+        }   
+     
+    echo "</tbody></table></div>";       
+
+    mysqli_close($conexion);  
+    
+}
+
+function listarPedidos($conexion){
+
+    error_reporting(0);
+  
+    $numPedido=$_REQUEST['pedido'];
+
+    if($numPedido == ""){
+        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM pedido p, lineapedido l order by dni_cliente, p.num_pedido asc";
+    }else{
+        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM pedido p, lineapedido l where p.num_pedido='$numPedido' order by dni_cliente, p.num_pedido asc";
+    }
+   
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h1>Pedidos</h1><br>  
+
+    <fieldset><form action='listarPedidos.php' method='post'>
+    <input type='number' placeholder='ID pedido' name='pedido'/>
+    <input type='submit' value='Buscar' name='Buscar'/>
+    </form></fieldset> <br>
+
+    <div class='datagrid'><table>
+    <thead><tr>
+            <th>DNI</th>         
+            <th>ID Pedido</th>
+            <th>Pizza</th>
+            <th>Unidades</th>
+            <th>Ingrediente adicional</th>
+            <th>Unidades ingrediente adicional</th>
+            <th>Fecha&nbsp&nbsp&nbsp</th>
+            <th>Importe</th>
+    </tr></thead><tbody>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            echo"<tr>
+            <td>$datos[dni_cliente]</td>    
+            <td>$datos[num_pedido]</td>  
+            <td>$datos[nom_pizza]</td>  
+            <td>$datos[unidades]</td>  
+            <td>$datos[ing_adicional]</td>          
+            <td>$datos[unidades_ing_adicional]</td>  
+            <td>$datos[fechahora]</td>  
+            <td>$datos[importe]</td>  
+            </tr>";
+        }   
+     
+    echo "</tbody></table></div>";       
+
+    mysqli_close($conexion);  
+    
+}
+
+function anadirPizzas($conexion){
+
+    if (isset($_REQUEST['Añadir'])){
+        $sql="INSERT INTO Pizza values ('". $_REQUEST['nombre'] . "','" . $_REQUEST['tiempo'] . "','" . $_REQUEST['precio'] . "','0','0')";
+        if(mysqli_query($conexion,$sql)){
+            echo "<fieldset><h2>Pizza añadida correctamente.<br><br>
+            <a href='index2.php'>Volver</a></h2></fieldset>";
+        }else{
+            echo "<fieldset><h2>Esta pizza ya esta añadida.<br><br>
+            <a href='index2.php'>Volver</a></h2></fieldset>";
+        }
+        mysqli_close($conexion);  
+    }else{
+        echo "<fieldset><h2>Añade un pizza a la base de datos.</h2>
+        <form action='anadirPizzas.php' method='post'>
+        <input type='text' placeholder='nombre' name='nombre'/>
+        <input type='number' placeholder='tiempo preparacion' name='tiempo'/>
+        <input type='number' step='0.01' placeholder='precio' name='precio'/>
+        <input type='submit' value='Añadir' name='Añadir'/>
+        </form></fieldset>";
+    }
 
 }
+
+function borrarPizzas($conexion){
+    
+    if (isset($_REQUEST['Borrar'])){
+        $sql="DELETE FROM Pizza WHERE nom_pizza='". $_REQUEST['borrarSelect'] . "'";
+        mysqli_query($conexion,$sql);
+        echo "<fieldset><h2>Pizza eliminada correctamente.<br><br>
+        <a href='index2.php'>Volver</a></h2></fieldset>";
+        mysqli_close($conexion);  
+    }else{
+        $sql2="SELECT * from pizza";
+        $registros=mysqli_query($conexion,$sql2);
+
+
+        echo "<fieldset><h2>Borre un pizza de la base de datos.</h2>
+        <form action='borrarPizzas.php' method='post'>
+
+        <select name='borrarSelect'>
+        <option value=0>--Seleccione una Pizza--</option>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+            echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
+        }
+     
+        echo "</select>
+        <input type='submit' value='Borrar' name='Borrar'/>
+        </form></fieldset>";
+    }
+
+}
+
+function anadirIngredientes($conexion){
+   //anadirIngredientes
+}
+
+function borrarIngredientes($conexion){
+    //borrarIngredientes
+}
+
+
 ?>
