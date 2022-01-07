@@ -111,6 +111,54 @@ function ListarPizzas($conexion) {
 
 }
 
+function ListarPizzas2($conexion) {
+
+    $sql="SELECT * FROM Pizza";
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h1>CARTA</h1>  <br>      
+    <div class='datagrid'><table> 
+    <thead><tr>
+            <th>Pizza</th>         
+            <th>Ingredientes&nbsp&nbsp&nbsp&nbsp</th>
+            <th>Tiempo preparacion (min)</th>
+            <th>Cantidad de pedidos</th>
+            <th>Cantidad de unidades</th>
+            <th>Precio</th>
+    </tr></thead><tbody>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            $sql2="select * from Contiene where nom_pizza='$datos[nom_pizza]'";  
+            $registros2=mysqli_query($conexion,$sql2);
+
+            $ingredientes="";
+              
+            while ($datos2=mysqli_fetch_assoc($registros2)){
+                $sql3="select * from Ingrediente where nom_ingrediente='$datos2[nom_ingrediente]'";
+                $registros3=mysqli_query($conexion,$sql3);
+                while ($datos3=mysqli_fetch_assoc($registros3)){
+                $ingredientes=$ingredientes . $datos2['nom_ingrediente'] . " (" . $datos3['unidad_medida'] . ", " . $datos3['tipo'] . ") <br>";
+                }
+            }
+
+            echo"<tr>
+            <td>$datos[nom_pizza]</td>            
+            <td>$ingredientes</td> 
+            <td>$datos[tiempo_prep]</td> 
+            <td>$datos[num_pedidos]</td> 
+            <td>$datos[num_unidades]</td> 
+            <td>" . number_format($datos['precio'],2,",",".") . " € </td>
+            </tr>";
+        }   
+     
+    echo "</tbody></table></div>";       
+
+    mysqli_close($conexion);  
+
+}
+
 function elegirPizzas($conexion,$numPizzas){
 
 
@@ -347,7 +395,7 @@ function listarClientes($conexion){
     <fieldset><form action='listarClientes.php' method='post'>
     <input type='text' placeholder='DNI' name='dni'/>
     <input type='submit' value='Buscar' name='Buscar'/>
-    </form></fieldset> <br>
+    </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset> <br>
 
     <div class='datagrid'><table>
     <thead><tr>
@@ -405,7 +453,7 @@ function listarPedidos($conexion){
     <fieldset><form action='listarPedidos.php' method='post'>
     <input type='number' placeholder='ID pedido' name='pedido'/>
     <input type='submit' value='Buscar' name='Buscar'/>
-    </form></fieldset> <br>
+    </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset> <br>
 
     <div class='datagrid'><table>
     <thead><tr>
@@ -442,14 +490,19 @@ function listarPedidos($conexion){
 function anadirPizzas($conexion){
 
     if (isset($_REQUEST['Añadir'])){
-        $sql="INSERT INTO Pizza values ('". $_REQUEST['nombre'] . "','" . $_REQUEST['tiempo'] . "','" . $_REQUEST['precio'] . "','0','0')";
-        if(mysqli_query($conexion,$sql)){
-            echo "<fieldset><h2>Pizza añadida correctamente.<br><br>
-            <a href='index2.php'>Volver</a></h2></fieldset>";
+        $sql="INSERT INTO Pizza values ('". ucwords($_REQUEST['nombre']) . "','" . $_REQUEST['tiempo'] . "','" . $_REQUEST['precio'] . "','0','0')";
+        if(empty($_REQUEST['nombre']) || empty($_REQUEST['tiempo']) || empty($_REQUEST['precio'])){
+            echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
+            <a href='anadirPizzas.php'>Volver</a></h2></fieldset>";
         }else{
-            echo "<fieldset><h2>Esta pizza ya esta añadida.<br><br>
-            <a href='index2.php'>Volver</a></h2></fieldset>";
-        }
+            if(mysqli_query($conexion,$sql)){
+                echo "<fieldset><h2>Pizza añadida correctamente.<br><br>
+                <a href='anadirPizzas.php'>Añadir otra pizza</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
+            }else{
+                echo "<fieldset><h2>Esta pizza ya esta añadida.<br><br>
+                <a href='index2.php'>Volver</a></h2></fieldset>";
+            }
+        }      
         mysqli_close($conexion);  
     }else{
         echo "<fieldset><h2>Añade un pizza a la base de datos.</h2>
@@ -458,7 +511,7 @@ function anadirPizzas($conexion){
         <input type='number' placeholder='tiempo preparacion' name='tiempo'/>
         <input type='number' step='0.01' placeholder='precio' name='precio'/>
         <input type='submit' value='Añadir' name='Añadir'/>
-        </form></fieldset>";
+        </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
     }
 
 }
@@ -467,9 +520,14 @@ function borrarPizzas($conexion){
     
     if (isset($_REQUEST['Borrar'])){
         $sql="DELETE FROM Pizza WHERE nom_pizza='". $_REQUEST['borrarSelect'] . "'";
-        mysqli_query($conexion,$sql);
-        echo "<fieldset><h2>Pizza eliminada correctamente.<br><br>
-        <a href='index2.php'>Volver</a></h2></fieldset>";
+        if($_REQUEST['borrarSelect'] == 0){
+            echo "<fieldset><h2>Error: Seleccione una pizza.<br><br>
+            <a href='borrarPizzas.php'>Volver</a></h2></fieldset>";
+        }else{
+            mysqli_query($conexion,$sql);
+            echo "<fieldset><h2>Pizza eliminada correctamente.<br><br>
+            <a href='borrarPizzas.php'>Eliminar otra pizza</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
+        }
         mysqli_close($conexion);  
     }else{
         $sql2="SELECT * from pizza";
@@ -488,17 +546,57 @@ function borrarPizzas($conexion){
      
         echo "</select>
         <input type='submit' value='Borrar' name='Borrar'/>
-        </form></fieldset>";
+        </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
     }
 
 }
 
 function anadirIngredientes($conexion){
-   //anadirIngredientes
+
+    if (isset($_REQUEST['Añadir'])){
+        $sql="INSERT INTO Ingrediente values ('". ucwords($_REQUEST['nombre']) . "','" . $_REQUEST['unidad'] . "','" . $_REQUEST['tipo'] . "','0')";
+        if(empty($_REQUEST['nombre']) || $_REQUEST['unidad'] == 0 || $_REQUEST['tipo'] == 0){
+            echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
+            <a href='anadirIngredientes.php'>Volver</a></h2></fieldset>";
+        }else{
+            if(mysqli_query($conexion,$sql)){
+                echo "<fieldset><h2>Ingrediente añadida correctamente.<br><br>
+                <a href='anadirIngredientes.php'>Añadir otro ingrediente</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
+            }else{
+                echo "<fieldset><h2>Este ingrediente ya esta añadida.<br><br>
+                <a href='index2.php'>Volver</a></h2></fieldset>";
+            }
+        }      
+        mysqli_close($conexion);  
+    }else{
+        echo "<fieldset><h2>Añade un ingrediente a la base de datos.</h2>
+        <form action='anadirIngredientes.php' method='post'>
+        <input type='text' placeholder='nombre' name='nombre'/>
+
+        <select name='unidad'>
+        <option value=0>--Seleccione la unidad--</option>
+        <option value='gr'>gr</option>
+        <option value='ml'>ml</option>     
+        </select>
+        
+        <select name='tipo'>
+        <option value=0>--Seleccione el tipo--</option>
+        <option value='V'>V</option>
+        <option value='C'>C</option>  
+        <option value='L'>L</option>    
+        </select>
+
+        <input type='submit' value='Añadir' name='Añadir'/>
+        </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
+    }
 }
 
 function borrarIngredientes($conexion){
     //borrarIngredientes
+}
+
+function listarIngredientes($conexion){
+    //listarIngredientes
 }
 
 

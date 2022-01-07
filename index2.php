@@ -23,7 +23,7 @@
         $_SESSION["usuario"] = "";
       }
       if($_SESSION["usuario"] != ""){
-            echo "<fieldset><h2>Session iniciada con el usuario: " . ucwords($_SESSION["usuario"]) . "</h2>";
+            echo "<br><fieldset><h2>Session iniciada con el usuario: " . ucwords($_SESSION["usuario"]) . "</h2>";
             echo "<h2><form action='index.php' method='post'>
             <input type='submit' value='Cerrar Sesion' name='Cerrar'/>
             </form></h2></fieldset>";  
@@ -49,7 +49,8 @@
             <li><a id='pizzas' href='borrarPizzas.php'>Borrar Pizzas</a></li>
             <li><a id='pizzas' href='anadirIngredientes.php'>Añadir Ingredientes</a></li>
             <li><a id='pizzas' href='borrarIngredientes.php'>Borrar Ingredientes</a></li>
-            <li><a id='menus' href='listarPizzas.php'>Ver La Carta</a></li>
+            <li><a id='pizzas' href='listarIngredientes.php'>Ver Ingredientes</a></li>
+            <li><a id='menus' href='listarPizzas2.php'>Ver La Carta</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
         </ul>
 
