@@ -101,3 +101,14 @@ body {
   
   }
   fieldset{text-align: center;background-color: #dff9fa;}
+  input {text-align: center;margin:4px;}
+  input[type=submit]{
+    font-size:10px;
+    font-family:Verdana,Helvetica;
+    font-weight:bold;
+    color:white;
+    background:#638cb5;
+    border:0px;
+    width:130px;
+    height:45px;
+   }

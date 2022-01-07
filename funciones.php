@@ -166,11 +166,11 @@ function elegirPizzas($conexion,$numPizzas){
             }
 
             echo "<input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>";   
-            echo "<a href='hacerPedido.php'> Volver </a>";
+            echo "<h2><a href='hacerPedido.php'> Volver </a></h2>";
 
         }else{
-            echo "<h2>Seleccione al menos una pizza</h2>
-            <a href='hacerPedido.php'>Volver</a></fieldset>";
+            echo "<h2>Seleccione al menos una pizza
+            <a href='hacerPedido.php'>Volver</a></h2></fieldset>";
 	
         }
 
@@ -258,7 +258,7 @@ function consultarPedido($conexion){
         </div>
         </form>";
     }else{
-        echo "<fieldset><h2>Error: Seleccione las Pizzas.<br>
+        echo "<fieldset><h2>Error: Seleccione las Pizzas.<br><br>
         <a href='hacerPedido.php'>Volver</a></h2></fieldset> ";
     }
 
@@ -481,11 +481,11 @@ function borrarPizzas($conexion){
 }
 
 function anadirIngredientes($conexion){
-   
+   //anadirIngredientes
 }
 
 function borrarIngredientes($conexion){
-    
+    //borrarIngredientes
 }
 
 
