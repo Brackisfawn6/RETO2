@@ -330,7 +330,6 @@ function validarDni($dni){
 
 function listarClientes($conexion){
 
-   
     error_reporting(0);
   
     $DNI1=$_REQUEST['dni'];
@@ -404,7 +403,7 @@ function listarPedidos($conexion){
     <h1>Pedidos</h1><br>  
 
     <fieldset><form action='listarPedidos.php' method='post'>
-    <input type='text' placeholder='ID pedido' name='pedido'/>
+    <input type='number' placeholder='ID pedido' name='pedido'/>
     <input type='submit' value='Buscar' name='Buscar'/>
     </form></fieldset> <br>
 
@@ -440,16 +439,50 @@ function listarPedidos($conexion){
     
 }
 
-function anadirPizzas(){
-    
+function anadirPizzas($conexion){
+
+    if (isset($_REQUEST['Añadir'])){
+        $sql="INSERT INTO Pizza values ('". $_REQUEST['nombre'] . "','" . $_REQUEST['tiempo'] . "','" . $_REQUEST['precio'] . "','0','0')";
+        if(mysqli_query($conexion,$sql)){
+            echo "<fieldset><h2>Pizza añadida correctamente.<br><br>
+            <a href='index2.php'>Volver</a></h2></fieldset>";
+        }else{
+            echo "<fieldset><h2>Esta pizza ya esta añadida.<br><br>
+            <a href='index2.php'>Volver</a></h2></fieldset>";
+        }
+        mysqli_close($conexion);  
+    }else{
+        echo "<fieldset><form action='anadirPizzas.php' method='post'>
+        <input type='text' placeholder='nombre' name='nombre'/>
+        <input type='number' placeholder='tiempo preparacion' name='tiempo'/>
+        <input type='number' placeholder='precio' name='precio'/>
+        <input type='submit' value='Añadir' name='Añadir'/>
+        </form></fieldset>";
+    }
+
 }
-function anadirIngredientes(){
+
+function borrarPizzas($conexion){
+    
+    if (isset($_REQUEST['Borrar'])){
+        $sql="DELETE FROM Pizza WHERE nom_pizza='". $_REQUEST['nombre'] . "'";
+        echo "<fieldset><h2>Pizza eliminada correctamente.<br><br>
+        <a href='index2.php'>Volver</a></h2></fieldset>";
+        mysqli_close($conexion);  
+    }else{
+        echo "<fieldset><form action='borrarPizzas.php' method='post'>
+        <input type='text' placeholder='nombre' name='nombre'/>
+        <input type='submit' value='Borrar' name='Borrar'/>
+        </form></fieldset>";
+    }
+
+}
+
+function anadirIngredientes($conexion){
    
 }
-function borrarPizzas(){
-    
-}
-function borrarIngredientes(){
+
+function borrarIngredientes($conexion){
     
 }
 
