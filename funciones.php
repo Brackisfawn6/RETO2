@@ -452,7 +452,8 @@ function anadirPizzas($conexion){
         }
         mysqli_close($conexion);  
     }else{
-        echo "<fieldset><form action='anadirPizzas.php' method='post'>
+        echo "<fieldset><h2>Añade un pizza a la base de datos.</h2>
+        <form action='anadirPizzas.php' method='post'>
         <input type='text' placeholder='nombre' name='nombre'/>
         <input type='number' placeholder='tiempo preparacion' name='tiempo'/>
         <input type='number' placeholder='precio' name='precio'/>
@@ -470,7 +471,8 @@ function borrarPizzas($conexion){
         <a href='index2.php'>Volver</a></h2></fieldset>";
         mysqli_close($conexion);  
     }else{
-        echo "<fieldset><form action='borrarPizzas.php' method='post'>
+        echo "<fieldset><h2>Borre un pizza de la base de datos.</h2>
+        <form action='borrarPizzas.php' method='post'>
         <input type='text' placeholder='nombre' name='nombre'/>
         <input type='submit' value='Borrar' name='Borrar'/>
         </form></fieldset>";
