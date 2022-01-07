@@ -55,9 +55,11 @@
 
     </label>
 
-    
+
+    <br><br><img src="Imagenes/ibai3.png" alt="" width="60%" height="60%"> <br><br><br><br><br><br><br><br>
+
     <div class="footer">
-        <p>Copyright © 2022 - Página Web realizada por Miguel Lopez | Contacto: miguel.lopezhe@elorrieta-errekamari.com<br></p>
+        <p>Copyright © 2022 - Página Web realizada por Miguel López | Contacto: miguel.lopezhe@elorrieta-errekamari.com<br></p>
     </div>
 
  

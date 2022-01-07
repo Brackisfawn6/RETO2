@@ -125,3 +125,8 @@ body {
     font-size:20px;
 
   }
+
+  img{
+    display:block;
+    margin:auto;
+    }

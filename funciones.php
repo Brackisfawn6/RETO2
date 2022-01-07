@@ -456,7 +456,7 @@ function anadirPizzas($conexion){
         <form action='anadirPizzas.php' method='post'>
         <input type='text' placeholder='nombre' name='nombre'/>
         <input type='number' placeholder='tiempo preparacion' name='tiempo'/>
-        <input type='number' placeholder='precio' name='precio'/>
+        <input type='number' step='0.01' placeholder='precio' name='precio'/>
         <input type='submit' value='Añadir' name='Añadir'/>
         </form></fieldset>";
     }
@@ -466,14 +466,27 @@ function anadirPizzas($conexion){
 function borrarPizzas($conexion){
     
     if (isset($_REQUEST['Borrar'])){
-        $sql="DELETE FROM Pizza WHERE nom_pizza='". $_REQUEST['nombre'] . "'";
+        $sql="DELETE FROM Pizza WHERE nom_pizza='". $_REQUEST['borrarSelect'] . "'";
+        mysqli_query($conexion,$sql);
         echo "<fieldset><h2>Pizza eliminada correctamente.<br><br>
         <a href='index2.php'>Volver</a></h2></fieldset>";
         mysqli_close($conexion);  
     }else{
+        $sql2="SELECT * from pizza";
+        $registros=mysqli_query($conexion,$sql2);
+
+
         echo "<fieldset><h2>Borre un pizza de la base de datos.</h2>
         <form action='borrarPizzas.php' method='post'>
-        <input type='text' placeholder='nombre' name='nombre'/>
+
+        <select name='borrarSelect'>
+        <option value=0>--Seleccione una Pizza--</option>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+            echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
+        }
+     
+        echo "</select>
         <input type='submit' value='Borrar' name='Borrar'/>
         </form></fieldset>";
     }

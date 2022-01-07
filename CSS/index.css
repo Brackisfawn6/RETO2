@@ -100,7 +100,11 @@ body {
   height: auto;
   
   }
-  fieldset{text-align: center;background-color: #dff9fa;}
+  fieldset{text-align: center;
+    background-color: #dff9fa;
+    float: center;
+    }
+
   input {text-align: center;margin:4px;}
   input[type=submit]{
     font-size:10px;
@@ -125,3 +129,8 @@ body {
     font-size:20px;
 
   }
+
+  img{
+    display:block;
+    margin:auto;
+    }
