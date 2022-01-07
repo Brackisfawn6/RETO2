@@ -9,29 +9,41 @@ function Login($conexion,$dni,$password){
 
     if(empty($dni)){
         $mensaje = "Faltan datos";
-    }else{
-        while ($datos = mysqli_fetch_assoc($registros)){
-
-            if($datos['DNI'] == $dni){
-                $encontrar=true;
-                    if ($datos['password'] == $password){
-                        echo "<meta http-equiv='refresh' content='0 url=index.php'>";    
-                        if(!isset($_SESSION)) 
-                        { 
-                            session_start(); 
-                        }          
-                        $_SESSION["usuario"]= $datos['nombre'];
-                        $_SESSION["dni"]= $datos['DNI'];
-                    }else{
-                        $mensaje= "Contraseña incorrecta";  
-                    }
+    }/*elseif (validarDni($dni) == false){
+        $mensaje = "El formato del DNI es incorrecto.";
+    }*/
+    else{
+        if($dni == 'admin' &&  $password == 'admin'){
+            echo "<meta http-equiv='refresh' content='0 url=index2.php'>";    
+            if(!isset($_SESSION)) 
+            { 
+                session_start(); 
+            }          
+            $_SESSION["usuario"]= "administrador";
+            $_SESSION["dni"]= "admin";
+        }else{
+            while ($datos = mysqli_fetch_assoc($registros)){         
+                if($datos['DNI'] == $dni){
+                    $encontrar=true;
+                        if ($datos['password'] == $password){
+                            echo "<meta http-equiv='refresh' content='0 url=index.php'>";    
+                            if(!isset($_SESSION)) 
+                            { 
+                                session_start(); 
+                            }          
+                            $_SESSION["usuario"]= $datos['nombre'];
+                            $_SESSION["dni"]= $datos['DNI'];
+                        }else{
+                            $mensaje= "Contraseña incorrecta";  
+                        }
+                }
             }
-        }
-        if($encontrar == false){
-            $mensaje = "Cliente no encontrado";
-        }
-    }  
-
+            if($encontrar == false){
+                $mensaje = "Cliente no encontrado";
+            }
+        }  
+    }
+       
     return $mensaje;
     mysqli_close($conexion);
       
@@ -43,9 +55,11 @@ function Registrarse($conexion,$dni,$nombre,$direccion,$poblacion,$telefono,$ema
     
     if(empty($dni) || empty($nombre) || empty($direccion) || empty($poblacion) || empty($telefono) || empty($email) || empty($password)){
         $mensaje = "Rellene todos los campos.";
-    }elseif (!mysqli_query($conexion, $sql)) {
-        $mensaje = "Este DNI ya esta registrado";
-    } else {
+    }elseif(validarDni($dni) == false){
+        $mensaje = "El formato del DNI es incorrecto.";
+    }elseif(!mysqli_query($conexion, $sql)) {
+        $mensaje = "Este DNI ya esta registrado.";
+    }else {
         $mensaje = "Usuario registrado correctamente.";
         mysqli_query($conexion,$sql);
     }
@@ -303,6 +317,7 @@ function anadirPedido($conexion){
 }
 
 function validarDni($dni){
+
     $letra = substr($dni, -1);
     $numeros = substr($dni, 0, -1);
     $valido;
@@ -311,6 +326,132 @@ function validarDni($dni){
     }else{
       return false;
     }
-  }
+}
+
+function listarClientes($conexion){
+
+   
+    error_reporting(0);
+  
+    $DNI1=$_REQUEST['dni'];
+
+    if($DNI1 == ""){
+        $sql="SELECT * FROM Cliente";
+    }else{
+        $sql="SELECT * FROM Cliente where DNI='$DNI1'";
+    }
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h1>CLIENTES</h1>  <br>  
+    
+    <fieldset><form action='listarClientes.php' method='post'>
+    <input type='text' placeholder='DNI' name='dni'/>
+    <input type='submit' value='Buscar' name='Buscar'/>
+    </form></fieldset> <br>
+
+    <div class='datagrid'><table>
+    <thead><tr>
+            <th>DNI</th>         
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Poblacion</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Fecha&nbsp&nbspAlta</th>
+            <th>Contraseña</th>
+            <th>Ultimo&nbsp&nbspPedido</th>
+            <th>Cantidad de Pedidos</th>
+    </tr></thead><tbody>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            echo"<tr>
+            <td>$datos[DNI]</td>    
+            <td>$datos[nombre]</td>  
+            <td>$datos[direccion]</td>  
+            <td>$datos[poblacion]</td>  
+            <td>$datos[telefono]</td>          
+            <td>$datos[email]</td>  
+            <td>$datos[fecha_alta]</td>  
+            <td>$datos[password]</td>  
+            <td>$datos[ultimo_pedido]</td>  
+            <td>$datos[num_pedidos]</td>  
+            </tr>";
+        }   
+     
+    echo "</tbody></table></div>";       
+
+    mysqli_close($conexion);  
+    
+}
+
+function listarPedidos($conexion){
+
+    error_reporting(0);
+  
+    $numPedido=$_REQUEST['pedido'];
+
+    if($numPedido == ""){
+        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM pedido p, lineapedido l order by dni_cliente, p.num_pedido asc";
+    }else{
+        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM pedido p, lineapedido l where p.num_pedido='$numPedido' order by dni_cliente, p.num_pedido asc";
+    }
+   
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h1>Pedidos</h1><br>  
+
+    <fieldset><form action='listarPedidos.php' method='post'>
+    <input type='text' placeholder='ID pedido' name='pedido'/>
+    <input type='submit' value='Buscar' name='Buscar'/>
+    </form></fieldset> <br>
+
+    <div class='datagrid'><table>
+    <thead><tr>
+            <th>DNI</th>         
+            <th>ID Pedido</th>
+            <th>Pizza</th>
+            <th>Unidades</th>
+            <th>Ingrediente adicional</th>
+            <th>Unidades ingrediente adicional</th>
+            <th>Fecha&nbsp&nbsp&nbsp</th>
+            <th>Importe</th>
+    </tr></thead><tbody>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            echo"<tr>
+            <td>$datos[dni_cliente]</td>    
+            <td>$datos[num_pedido]</td>  
+            <td>$datos[nom_pizza]</td>  
+            <td>$datos[unidades]</td>  
+            <td>$datos[ing_adicional]</td>          
+            <td>$datos[unidades_ing_adicional]</td>  
+            <td>$datos[fechahora]</td>  
+            <td>$datos[importe]</td>  
+            </tr>";
+        }   
+     
+    echo "</tbody></table></div>";       
+
+    mysqli_close($conexion);  
+    
+}
+
+function anadirPizzas(){
+    
+}
+function anadirIngredientes(){
+   
+}
+function borrarPizzas(){
+    
+}
+function borrarIngredientes(){
+    
+}
+
 
 ?>
