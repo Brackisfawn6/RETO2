@@ -56,7 +56,9 @@
     </label>
 
     
-  
+    <div class="footer">
+        <p>Copyright © 2022 - Página Web realizada por Miguel Lopez | Contacto: miguel.lopezhe@elorrieta-errekamari.com<br></p>
+    </div>
 
  
     
