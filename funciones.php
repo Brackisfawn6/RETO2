@@ -596,7 +596,33 @@ function borrarIngredientes($conexion){
 }
 
 function listarIngredientes($conexion){
-    //listarIngredientes
+
+    $sql="SELECT * FROM ingrediente";
+    $registros=mysqli_query($conexion,$sql);
+
+    echo "
+    <h1>INGREDIENTES</h1>  <br>  
+    <div class='datagrid'><table>
+    <thead><tr>
+            <th>Ingrediente</th>         
+            <th>Unidad</th>
+            <th>Tipo</th>
+            <th>Veces pedido</th>
+    </tr></thead><tbody>";
+
+        while($datos=mysqli_fetch_assoc($registros)){
+
+            echo"<tr>
+            <td>$datos[nom_ingrediente]</td>    
+            <td>$datos[unidad_medida]</td>  
+            <td>$datos[tipo]</td>  
+            <td>$datos[num_veces]</td>  
+            </tr>";
+        }   
+     
+    echo "</tbody></table></div>";       
+
+    mysqli_close($conexion);  
 }
 
 
