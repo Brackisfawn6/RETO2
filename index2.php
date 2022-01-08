@@ -49,18 +49,20 @@
             <li><a id='pizzas' href='borrarPizzas.php'>Borrar Pizzas</a></li>
             <li><a id='pizzas' href='anadirIngredientes.php'>Añadir Ingredientes</a></li>
             <li><a id='pizzas' href='borrarIngredientes.php'>Borrar Ingredientes</a></li>
+            <li><a id='pizzas' href='seleccionarContiene.php'>Seleccionar Contiene</a></li>
+            <li><a id='pizzas' href='seleccionarContiene.php'>Eliminar Contiene</a></li>
             <li><a id='pizzas' href='listarIngredientes.php'>Ver Ingredientes</a></li>
-            <li><a id='menus' href='listarPizzas2.php'>Ver La Carta</a></li>
+            <li><a id='menus' href='listarPizzas2.php'>Ver La Carta</a></li><br>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
         </ul>
 
     </label>
 
 
-    <br><br><img src="Imagenes/ibai3.png" alt="" width="60%" height="60%"> <br><br><br><br><br><br><br><br>
+    <br><br><img src="Imagenes/ibai3.png" alt="" width="70%" height="70%"> <br><br><br><br><br><br><br><br>
 
     <div class="footer">
-        <p>Copyright © 2022 - Página Web realizada por Miguel López | Contacto: miguel.lopezhe@elorrieta-errekamari.com<br></p>
+        <p>Creadores: Miguel Lopez, Mikel Sanchez, Felix Miguel. </p>
     </div>
 
  

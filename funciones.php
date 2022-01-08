@@ -595,6 +595,14 @@ function borrarIngredientes($conexion){
     //borrarIngredientes
 }
 
+function anadirContiene($conexion){
+    //borrarIngredientes
+}
+
+function borrarContiene($conexion){
+    //borrarIngredientes
+}
+
 function listarIngredientes($conexion){
 
     $sql="SELECT * FROM ingrediente";
