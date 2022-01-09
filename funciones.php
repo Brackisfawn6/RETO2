@@ -677,7 +677,53 @@ function anadirContiene($conexion){
 }
 
 function borrarContiene($conexion){
-    //borrarIngredientes
+    if (isset($_REQUEST['Borrar'])){
+	    $sql="delete from Contiene where nom_pizza = '".$_REQUEST['anadirContiene1'] . "' and nom_ingrediente = '". $_REQUEST['anadirContiene2']."'";
+            if($_REQUEST['anadirContiene1'] == 0 || $_REQUEST['anadirContiene2'] == 0){
+                echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
+                <a href='borrarContiene.php'>Volver</a></h2></fieldset>";
+            }else{
+                if(mysqli_query($conexion,$sql)){
+                    echo "<fieldset><h2>Ingrediente borrado correctamente de la pizza.<br><br>
+                    <a href='borrarContiene.php'>Borrar otro ingrediente de la pizza</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
+                }else{
+                    echo "<fieldset><h2>Este ingrediente ya esta borrado.<br><br>
+                    <a href='index2.php'>Volver</a></h2></fieldset>";
+                }
+            }
+            mysqli_close($conexion);
+          }else{
+              $sql2="SELECT * from Pizza";
+          $sql3="SELECT * from Ingrediente";
+          $registros1=mysqli_query($conexion,$sql2);
+          $registros2=mysqli_query($conexion,$sql3);
+  
+          echo "<fieldset><h2>Añade un ingrediente a la pizza.</h2>
+          <form action='anadirContiene.php' method='post'>
+    
+          <select name='anadirContiene1'>
+              <option value=0>--Seleccione una pizza--</option>";
+  
+              while($datos=mysqli_fetch_assoc($registros1)){
+                  echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
+              }
+  
+              echo "</select>
+  
+  
+              <select name='anadirContiene2'>                     
+          <option value=0>--Seleccione un ingrediente--</option>";
+  
+              while($datos=mysqli_fetch_assoc($registros2)){
+                   echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
+              }
+  
+          echo "</select>     
+    
+          <input type='submit' value='Borrar' name='Borrar'/>
+          </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
+          }
+
 }
 
 function listarIngredientes($conexion){
