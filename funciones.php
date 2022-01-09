@@ -698,8 +698,8 @@ function borrarContiene($conexion){
           $registros1=mysqli_query($conexion,$sql2);
           $registros2=mysqli_query($conexion,$sql3);
   
-          echo "<fieldset><h2>Añade un ingrediente a la pizza.</h2>
-          <form action='anadirContiene.php' method='post'>
+          echo "<fieldset><h2>Borra un ingrediente de la pizza.</h2>
+          <form action='borrarContiene.php' method='post'>
     
           <select name='anadirContiene1'>
               <option value=0>--Seleccione una pizza--</option>";
