@@ -628,13 +628,13 @@ function borrarIngredientes($conexion){
 function anadirContiene($conexion){
 	if (isset($_REQUEST['Añadir'])){
           $sql="INSERT INTO Contiene values ('".$_REQUEST['anadirContiene1'] . "','" . $_REQUEST['anadirContiene2'] . "','" . $_REQUEST['cantidad'] . "')";
-          if($_REQUEST['nom_pizza']==0 || $_REQUEST['nom_ingrediente'] == 0 || empty($_REQUEST['cantidad'])){
+          if($_REQUEST['anadirContiene1'] == 0 || $_REQUEST['anadirContiene2'] == 0 || empty($_REQUEST['cantidad'])){
               echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
               <a href='anadirContiene.php'>Volver</a></h2></fieldset>";
           }else{
               if(mysqli_query($conexion,$sql)){
                   echo "<fieldset><h2>Ingredientes añadidos correctamente a la pizza.<br><br>
-                  <a href='anadirContiene.php'>Añadir otro ingrediente a la pizza.</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
+                  <a href='anadirContiene.php'>Añadir otro ingrediente a la pizza</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
               }else{
                   echo "<fieldset><h2>Este ingrediente ya esta añadido.<br><br>
                   <a href='index2.php'>Volver</a></h2></fieldset>";
@@ -642,34 +642,36 @@ function anadirContiene($conexion){
           }      
           mysqli_close($conexion);  
 	}else{
-	  $sql2="SELECT * from Contiene";         
-          $registros=mysqli_query($conexion,$sql2);
-	
-          echo "<fieldset><h2>Añade un ingrediente a la pizza.</h2>
-          <form action='anadirContiene.php' method='post'>
+	    $sql2="SELECT * from Pizza";       
+        $sql3="SELECT * from Ingrediente";    
+        $registros1=mysqli_query($conexion,$sql2);
+        $registros2=mysqli_query($conexion,$sql3);
+
+        echo "<fieldset><h2>Añade un ingrediente a la pizza.</h2>
+        <form action='anadirContiene.php' method='post'>
   
-          <select name='anadirContiene1'>
+        <select name='anadirContiene1'>
 	    <option value=0>--Seleccione una pizza--</option>";
 	              
-            while($datos=mysqli_fetch_assoc($registros)){
+            while($datos=mysqli_fetch_assoc($registros1)){
                 echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
             }
             
-	    echo "</select>;
+	    echo "</select>
 
 
-	  <select name='anadirContiene2'>                     
-              <option value=0>--Seleccione un ingrediente--</option>";
+	    <select name='anadirContiene2'>                     
+        <option value=0>--Seleccione un ingrediente--</option>";
                                                                                                  
-              while($datos=mysqli_fetch_assoc($registros)){
-                  echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
-              }                                   
+            while($datos=mysqli_fetch_assoc($registros2)){
+                 echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
+            }                                   
                                                   
-              echo "</select>     
-	  <input type='number' placeholder='cantidad' name='cantidad'>
+        echo "</select>     
+	    <input type='number' placeholder='cantidad' name='cantidad' min='0'>
   
-          <input type='submit' value='Añadir' name='Añadir'/>
-          </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
+        <input type='submit' value='Añadir' name='Añadir'/>
+        </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
 	}
 
 }
