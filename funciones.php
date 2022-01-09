@@ -592,7 +592,37 @@ function anadirIngredientes($conexion){
 }
 
 function borrarIngredientes($conexion){
-    //borrarIngredientes
+	if (isset($_REQUEST['Borrar'])){
+          $sql="DELETE FROM Ingrediente WHERE nom_ingrediente='". $_REQUEST['borrarSelect'] . "'";
+          if($_REQUEST['borrarSelect'] == 0){
+              echo "<fieldset><h2>Error: Seleccione un ingrediente.<br><br>
+              <a href='borrarIngredientes.php'>Volver</a></h2></fieldset>";
+          }else{
+              mysqli_query($conexion,$sql);
+              echo "<fieldset><h2>Ingrediente eliminado correctamente.<br><br>
+              <a href='borrarIngredientes.php'>Eliminar otro ingrediente</a> &nbsp &nbsp <a href='index2.php'>Volver</a></h2></fieldset>";
+          }
+          mysqli_close($conexion);  
+        }else{
+          $sql2="SELECT * from ingrediente";
+          $registros=mysqli_query($conexion,$sql2);
+  
+          
+          echo "<fieldset><h2>Borre un ingrediente de la base de datos.</h2>
+          <form action='borrarIngredientes.php' method='post'>
+  
+          <select name='borrarSelect'>
+          <option value=0>--Seleccione un ingrediente--</option>";
+          
+          while($datos=mysqli_fetch_assoc($registros)){
+              echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
+          }
+          
+          echo "</select>
+          <input type='submit' value='Borrar' name='Borrar'/>
+          </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
+      }
+
 }
 
 function anadirContiene($conexion){
