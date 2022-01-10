@@ -56,10 +56,5 @@
     <div class="footer">
     <p>Creadores: Miguel Lopez, Mikel Sanchez, Felix Miguel. </p>
     </div>
-
-
- 
-    
-
 </body>
 </html>
