@@ -193,7 +193,7 @@ function elegirPizzas($conexion,$numPizzas){
                     <option value=0>--Seleccione una Pizza--</option>";
     
                     for($x=0;$x < count($pizzas) ;$x++){
-                        echo "<option value='".$pizzas[$x]."'>". $pizzas[$x] . "</option>";
+                        echo "<option value='". utf8_decode($pizzas[$x]) ."'>". utf8_decode($pizzas[$x]) . "</option>";
                     }
                  
                 echo "</select>
@@ -204,7 +204,7 @@ function elegirPizzas($conexion,$numPizzas){
                 <option value=0>--Seleccione un Ingrediente--</option>";
 
                     for($x=0;$x < count ($ingrediente) ;$x++){
-                        echo "<option value='".$ingrediente[$x]."'>". $ingrediente[$x] . "</option>";
+                        echo "<option value='". utf8_decode($ingrediente[$x]) ."'>". utf8_decode($ingrediente[$x]) . "</option>";
                     }
              
                 echo "</select>
@@ -280,8 +280,8 @@ function consultarPedido($conexion){
             }
     
             echo"<tr>
-            <td>" . $pizzas[$i] . "</td>            
-            <td>" . $ingredientes[$i] . "</td> 
+            <td>" . utf8_decode($pizzas[$i]) . "</td>            
+            <td>" . utf8_decode($ingredientes[$i]) . "</td> 
             <td>" . number_format($precio[$i],2,",",".") . " € </td>
             </tr>";
 
@@ -541,7 +541,7 @@ function borrarPizzas($conexion){
         <option value=0>--Seleccione una Pizza--</option>";
 
         while($datos=mysqli_fetch_assoc($registros)){
-            echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
+            echo "<option value='".  utf8_decode($datos['nom_pizza']) ."'>".  utf8_decode($datos['nom_pizza']) . "</option>";
         }
      
         echo "</select>
@@ -615,7 +615,7 @@ function borrarIngredientes($conexion){
           <option value=0>--Seleccione un ingrediente--</option>";
           
           while($datos=mysqli_fetch_assoc($registros)){
-              echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
+              echo "<option value='".  utf8_decode($datos['nom_ingrediente']) ."'>".  utf8_decode($datos['nom_ingrediente']) . "</option>";
           }
           
           echo "</select>
@@ -654,7 +654,7 @@ function anadirContiene($conexion){
 	    <option value=0>--Seleccione una pizza--</option>";
 	              
             while($datos=mysqli_fetch_assoc($registros1)){
-                echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
+                echo "<option value='".  utf8_decode($datos['nom_pizza'])."'>". utf8_decode($datos['nom_pizza']) . "</option>";
             }
             
 	    echo "</select>
@@ -664,7 +664,7 @@ function anadirContiene($conexion){
         <option value=0>--Seleccione un ingrediente--</option>";
                                                                                                  
             while($datos=mysqli_fetch_assoc($registros2)){
-                 echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
+                 echo "<option value='".  utf8_decode($datos['nom_ingrediente']) ."'>".  utf8_decode($datos['nom_ingrediente']) . "</option>";
             }                                   
                                                   
         echo "</select>     
@@ -705,7 +705,7 @@ function borrarContiene($conexion){
               <option value=0>--Seleccione una pizza--</option>";
   
               while($datos=mysqli_fetch_assoc($registros1)){
-                  echo "<option value='".$datos['nom_pizza']."'>". $datos['nom_pizza'] . "</option>";
+                  echo "<option value='".  utf8_decode($datos['nom_pizza'])."'>".  utf8_decode($datos['nom_pizza']) . "</option>";
               }
   
               echo "</select>
@@ -715,7 +715,7 @@ function borrarContiene($conexion){
           <option value=0>--Seleccione un ingrediente--</option>";
   
               while($datos=mysqli_fetch_assoc($registros2)){
-                   echo "<option value='".$datos['nom_ingrediente']."'>". $datos['nom_ingrediente'] . "</option>";
+                   echo "<option value='". utf8_decode($datos['nom_ingrediente']) ."'>". utf8_decode($datos['nom_ingrediente']) . "</option>";
               }
   
           echo "</select>     
