@@ -49,8 +49,8 @@
             <li><a id='pizzas' href='borrarPizzas.php'>Borrar Pizzas</a></li>
             <li><a id='pizzas' href='anadirIngredientes.php'>Añadir Ingredientes</a></li>
             <li><a id='pizzas' href='borrarIngredientes.php'>Borrar Ingredientes</a></li>
-            <li><a id='pizzas' href='anadirContiene.php'>Seleccionar Contiene</a></li>
-            <li><a id='pizzas' href='borrarContiene.php'>Eliminar Contiene</a></li>
+            <li><a id='pizzas' href='anadirContiene.php'>Añadir Contiene</a></li>
+            <li><a id='pizzas' href='borrarContiene.php'>Borrar Contiene</a></li>
             <li><a id='pizzas' href='listarIngredientes.php'>Ver Ingredientes</a></li>
             <li><a id='menus' href='listarPizzas2.php'>Ver La Carta</a></li><br>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>

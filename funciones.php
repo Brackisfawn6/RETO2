@@ -341,17 +341,13 @@ function anadirPedido($conexion){
         </form>
 
         </fieldset>";
-    }else{
-        echo mysqli_connect_error();
     }
 
-    $sql2="SELECT * FROM pedido ORDER BY num_pedido DESC LIMIT 1";
+    $sql2="SELECT * FROM Pedido ORDER BY num_pedido DESC LIMIT 1";
     $registros2=mysqli_query($conexion,$sql2);
     while ($datos = mysqli_fetch_assoc($registros2)){
         $num_pedido=$datos['num_pedido'];
     }
-
-    $_SESSION["num_pedido"]=$num_pedido;
 
     $pizzas=$_SESSION["pizzas"];
     $contar=array_count_values($pizzas);
@@ -359,7 +355,7 @@ function anadirPedido($conexion){
     for ($i=0; $i < count($pizzas); $i++) { 
         $nom_pizza=$pizzas[$i];
         $unidades=$contar[$pizzas[$i]];
-        $sql="INSERT INTO LineaPedido values ('$num_pedido','$nom_pizza',$unidades,null,0)";
+        $sql="INSERT INTO LineaPedido values ('$num_pedido','$nom_pizza',$unidades,null,)";
         mysqli_query($conexion,$sql);
     }
 
@@ -680,11 +676,50 @@ function anadirContiene($conexion){
 }
 
 function borrarContiene($conexion){
-    if (isset($_REQUEST['Borrar'])){
-	    $sql="delete from Contiene where nom_pizza = '".$_REQUEST['anadirContiene1'] . "' and nom_ingrediente = '". $_REQUEST['anadirContiene2']."'";
-            if($_REQUEST['anadirContiene1'] == 0 || $_REQUEST['anadirContiene2'] == 0){
-                echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
+    if(!isset($_SESSION)) 
+    { 
+          session_start(); 
+    } 
+
+    if (isset($_REQUEST['Siguiente'])){
+	   
+            if($_REQUEST['anadirContiene1'] == 0 ){
+                echo "<fieldset><h2>Error: Seleccione una pizza.<br><br>
                 <a href='borrarContiene.php'>Volver</a></h2></fieldset>";
+            }else{
+                $_SESSION["anadirContiene1"]=$_REQUEST['anadirContiene1'];
+                header('Location: '. 'borrarContiene2.php');
+            }
+            
+    }else{
+            $sql="SELECT * from Pizza";
+            $registros=mysqli_query($conexion,$sql);
+    
+            echo "<fieldset><h2>Seleccione una pizza</h2>
+            <form action='borrarContiene.php' method='post'>
+        
+            <select name='anadirContiene1'>
+                <option value=0>--Seleccione una pizza--</option>";
+    
+                while($datos=mysqli_fetch_assoc($registros)){
+                    echo "<option value='".  utf8_decode($datos['nom_pizza'])."'>".  utf8_decode($datos['nom_pizza']) . "</option>";
+                }
+    
+                echo "</select>
+        
+            <input type='submit' value='Siguiente' name='Siguiente'/>
+            </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
+    }
+    mysqli_close($conexion);
+
+}
+
+function borrarContiene2($conexion,$anadirContiene1){
+    if (isset($_REQUEST['Borrar'])){
+	    $sql="delete from Contiene where nom_pizza = '". $anadirContiene1 . "' and nom_ingrediente = '". $_REQUEST['anadirContiene2']."'";
+            if($_REQUEST['anadirContiene2'] == 0){
+                echo "<fieldset><h2>Error: Seleccione el ingrediente.<br><br>
+                <a href='borrarContiene2.php'>Volver</a></h2></fieldset>";
             }else{
                 if(mysqli_query($conexion,$sql)){
                     echo "<fieldset><h2>Ingrediente borrado correctamente de la pizza.<br><br>
@@ -694,29 +729,18 @@ function borrarContiene($conexion){
                     <a href='index2.php'>Volver</a></h2></fieldset>";
                 }
             }
-            mysqli_close($conexion);
-          }else{
-            $sql2="SELECT * from Pizza";
-            $sql3="SELECT * from Ingrediente";
-            $registros1=mysqli_query($conexion,$sql2);
-            $registros2=mysqli_query($conexion,$sql3);
+            
+    }else{
+            $sql="SELECT nom_ingrediente from Contiene where nom_pizza='$anadirContiene1'";
+            $registros=mysqli_query($conexion,$sql);
     
             echo "<fieldset><h2>Borra un ingrediente de la pizza.</h2>
-            <form action='borrarContiene.php' method='post'>
-        
-            <select name='anadirContiene1'>
-                <option value=0>--Seleccione una pizza--</option>";
-    
-                while($datos=mysqli_fetch_assoc($registros1)){
-                    echo "<option value='".  utf8_decode($datos['nom_pizza'])."'>".  utf8_decode($datos['nom_pizza']) . "</option>";
-                }
-    
-                echo "</select>
+            <form action='borrarContiene2.php' method='post'>
     
             <select name='anadirContiene2'>                     
                 <option value=0>--Seleccione un ingrediente--</option>";
     
-                while($datos=mysqli_fetch_assoc($registros2)){
+                while($datos=mysqli_fetch_assoc($registros)){
                     echo "<option value='". utf8_decode($datos['nom_ingrediente']) ."'>". utf8_decode($datos['nom_ingrediente']) . "</option>";
                 }
     
@@ -724,7 +748,8 @@ function borrarContiene($conexion){
         
             <input type='submit' value='Borrar' name='Borrar'/>
             </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
-          }
+    }
+    mysqli_close($conexion);
 
 }
 
