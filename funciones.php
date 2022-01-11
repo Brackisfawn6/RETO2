@@ -305,6 +305,7 @@ function consultarPedido($conexion){
         echo "<form action='registrarPedido.php' method='post'>  
         <div class='confirmar'>
             <input type='submit' value='Confirmar Pedido' name='confirmarPedido' />
+            <h2><a href='index.php'>Volver</a></h2>
         </div>
         </form>";
     }else{
