@@ -37,7 +37,7 @@
                             <h3>Seleccione al menos una pizza</h3>
                             <input type='number' value='0' min='0' max='100' name='numPizzas'> <br><br>
                             <input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>
-                            <a href='index.php'>Volver</a> 
+                            <h2><a href='index.php'>Volver</a></h2> 
                     </form></fieldset>";
 
                 }else{
@@ -55,7 +55,7 @@
                         <h3></h3>
                         <input type='number' value='0' min='0' max='100' name='numPizzas'> <br><br>
                         <input type='submit' value='Siguiente' name='seleccionarPizzas' /> <br><br>
-                        <a href='index.php'>Volver</a> 
+                        <h2><a href='index.php'>Volver</a></h2> 
                 </form></fieldset>";
 
             }

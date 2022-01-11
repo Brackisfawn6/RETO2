@@ -99,8 +99,8 @@ function ListarPizzas($conexion) {
             }
 
             echo"<tr>
-            <td>$datos[nom_pizza]</td>            
-            <td>$ingredientes</td> 
+            <td>" . utf8_decode($datos['nom_pizza']) . "</td>            
+            <td>" . utf8_decode($ingredientes) . "</td> 
             <td>" . number_format($datos['precio'],2,",",".") . " € </td>
             </tr>";
         }   
@@ -144,8 +144,8 @@ function ListarPizzas2($conexion) {
             }
 
             echo"<tr>
-            <td>$datos[nom_pizza]</td>            
-            <td>$ingredientes</td> 
+            <td>" . utf8_decode($datos['nom_pizza']) . "</td>            
+            <td>" . utf8_decode($ingredientes) . "</td> 
             <td>$datos[tiempo_prep]</td> 
             <td>$datos[num_pedidos]</td> 
             <td>$datos[num_unidades]</td> 
@@ -217,7 +217,7 @@ function elegirPizzas($conexion,$numPizzas){
             echo "<h2><a href='hacerPedido.php'> Volver </a></h2>";
 
         }else{
-            echo "<h2>Seleccione al menos una pizza
+            echo "<h2>Seleccione al menos una pizzaaa
             <a href='hacerPedido.php'>Volver</a></h2></fieldset>";
 	
         }
@@ -440,9 +440,9 @@ function listarPedidos($conexion){
     $numPedido=$_REQUEST['pedido'];
 
     if($numPedido == ""){
-        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM pedido p, lineapedido l order by dni_cliente, p.num_pedido asc";
+        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM Pedido p, LineaPedido l order by dni_cliente, p.num_pedido asc";
     }else{
-        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM pedido p, lineapedido l where p.num_pedido='$numPedido' order by dni_cliente, p.num_pedido asc";
+        $sql="SELECT dni_cliente, p.num_pedido, nom_pizza, unidades, ing_adicional, unidades_ing_adicional, fechahora, importe FROM Pedido p, LineaPedido l where p.num_pedido='$numPedido' order by dni_cliente, p.num_pedido asc";
     }
    
     $registros=mysqli_query($conexion,$sql);
@@ -728,7 +728,7 @@ function borrarContiene($conexion){
 
 function listarIngredientes($conexion){
 
-    $sql="SELECT * FROM ingrediente";
+    $sql="SELECT * FROM Ingrediente";
     $registros=mysqli_query($conexion,$sql);
 
     echo "
@@ -744,7 +744,7 @@ function listarIngredientes($conexion){
         while($datos=mysqli_fetch_assoc($registros)){
 
             echo"<tr>
-            <td>$datos[nom_ingrediente]</td>    
+            <td>" . utf8_decode($datos['nom_ingrediente']) . "</td>    
             <td>$datos[unidad_medida]</td>  
             <td>$datos[tipo]</td>  
             <td>$datos[num_veces]</td>  
