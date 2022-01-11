@@ -217,7 +217,7 @@ function elegirPizzas($conexion,$numPizzas){
             echo "<h2><a href='hacerPedido.php'> Volver </a></h2>";
 
         }else{
-            echo "<h2>Seleccione al menos una pizzaaa
+            echo "<h2>Seleccione al menos una pizza
             <a href='hacerPedido.php'>Volver</a></h2></fieldset>";
 	
         }
@@ -231,17 +231,19 @@ function consultarPedido($conexion){
         session_start(); 
     }    
 
-    $error=false;
+    $error=1;
 
     for($x=0;$x < $_SESSION["cantPizzas"] ;$x++){
 
         $selectPizza="elegirPizzas".$x;
         $nomPizza=$_REQUEST[$selectPizza];
 
-        if($nomPizza != 0){
+        if($nomPizza != "0"){
             $pizzas[]=$nomPizza;
         }else{
-            $error=true;
+            $error=0;
+            $error="error". $x . ":" . "0" . "<br>";
+            echo $error;
         }
               
     }
@@ -258,8 +260,8 @@ function consultarPedido($conexion){
         }
 
     }
-
-    if ($error != true){
+    
+    if ($error == 1){
 
         echo "
         <h1>Comprueba su compra:</h1>  <br>      
@@ -693,35 +695,34 @@ function borrarContiene($conexion){
             }
             mysqli_close($conexion);
           }else{
-              $sql2="SELECT * from Pizza";
-          $sql3="SELECT * from Ingrediente";
-          $registros1=mysqli_query($conexion,$sql2);
-          $registros2=mysqli_query($conexion,$sql3);
-  
-          echo "<fieldset><h2>Borra un ingrediente de la pizza.</h2>
-          <form action='borrarContiene.php' method='post'>
+            $sql2="SELECT * from Pizza";
+            $sql3="SELECT * from Ingrediente";
+            $registros1=mysqli_query($conexion,$sql2);
+            $registros2=mysqli_query($conexion,$sql3);
     
-          <select name='anadirContiene1'>
-              <option value=0>--Seleccione una pizza--</option>";
-  
-              while($datos=mysqli_fetch_assoc($registros1)){
-                  echo "<option value='".  utf8_decode($datos['nom_pizza'])."'>".  utf8_decode($datos['nom_pizza']) . "</option>";
-              }
-  
-              echo "</select>
-  
-  
-              <select name='anadirContiene2'>                     
-          <option value=0>--Seleccione un ingrediente--</option>";
-  
-              while($datos=mysqli_fetch_assoc($registros2)){
-                   echo "<option value='". utf8_decode($datos['nom_ingrediente']) ."'>". utf8_decode($datos['nom_ingrediente']) . "</option>";
-              }
-  
-          echo "</select>     
+            echo "<fieldset><h2>Borra un ingrediente de la pizza.</h2>
+            <form action='borrarContiene.php' method='post'>
+        
+            <select name='anadirContiene1'>
+                <option value=0>--Seleccione una pizza--</option>";
     
-          <input type='submit' value='Borrar' name='Borrar'/>
-          </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
+                while($datos=mysqli_fetch_assoc($registros1)){
+                    echo "<option value='".  utf8_decode($datos['nom_pizza'])."'>".  utf8_decode($datos['nom_pizza']) . "</option>";
+                }
+    
+                echo "</select>
+    
+            <select name='anadirContiene2'>                     
+                <option value=0>--Seleccione un ingrediente--</option>";
+    
+                while($datos=mysqli_fetch_assoc($registros2)){
+                    echo "<option value='". utf8_decode($datos['nom_ingrediente']) ."'>". utf8_decode($datos['nom_ingrediente']) . "</option>";
+                }
+    
+            echo "</select>     
+        
+            <input type='submit' value='Borrar' name='Borrar'/>
+            </form><br><h2><a href='index2.php'>Volver</a></h2></fieldset>";
           }
 
 }
