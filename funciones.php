@@ -355,7 +355,7 @@ function anadirPedido($conexion){
     for ($i=0; $i < count($pizzas); $i++) { 
         $nom_pizza=$pizzas[$i];
         $unidades=$contar[$pizzas[$i]];
-        $sql="INSERT INTO LineaPedido values ('$num_pedido','$nom_pizza',$unidades,null,)";
+        $sql="INSERT INTO LineaPedido values ('$num_pedido','$nom_pizza',$unidades,null,0)";
         mysqli_query($conexion,$sql);
     }
 
