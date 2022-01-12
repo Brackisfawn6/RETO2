@@ -253,7 +253,7 @@ function consultarPedido($conexion){
         $selectIng="elegirIng".$x;
         $nomIng=$_REQUEST[$selectIng];
 
-        if($nomIng != 0){
+        if($nomIng != "0"){
             $ingredientes[]=$nomIng; 
         }else{
             $ingredientes[]="Ninguno"; 
@@ -282,8 +282,8 @@ function consultarPedido($conexion){
             }
     
             echo"<tr>
-            <td>" . utf8_decode($pizzas[$i]) . "</td>            
-            <td>" . utf8_decode($ingredientes[$i]) . "</td> 
+            <td>" . ($pizzas[$i]) . "</td>            
+            <td>" . ($ingredientes[$i]) . "</td> 
             <td>" . number_format($precio[$i],2,",",".") . " € </td>
             </tr>";
 
@@ -519,7 +519,7 @@ function borrarPizzas($conexion){
     
     if (isset($_REQUEST['Borrar'])){
         $sql="DELETE FROM Pizza WHERE nom_pizza='". $_REQUEST['borrarSelect'] . "'";
-        if($_REQUEST['borrarSelect'] == 0){
+        if($_REQUEST['borrarSelect'] == "0"){
             echo "<fieldset><h2>Error: Seleccione una pizza.<br><br>
             <a href='borrarPizzas.php'>Volver</a></h2></fieldset>";
         }else{
@@ -529,9 +529,8 @@ function borrarPizzas($conexion){
         }
         mysqli_close($conexion);  
     }else{
-        $sql2="SELECT * from pizza";
+        $sql2="SELECT * from Pizza";
         $registros=mysqli_query($conexion,$sql2);
-
 
         echo "<fieldset><h2>Borre un pizza de la base de datos.</h2>
         <form action='borrarPizzas.php' method='post'>
@@ -554,7 +553,7 @@ function anadirIngredientes($conexion){
 
     if (isset($_REQUEST['Añadir'])){
         $sql="INSERT INTO Ingrediente values ('". ucwords($_REQUEST['nombre']) . "','" . $_REQUEST['unidad'] . "','" . $_REQUEST['tipo'] . "','0')";
-        if(empty($_REQUEST['nombre']) || $_REQUEST['unidad'] == 0 || $_REQUEST['tipo'] == 0){
+        if(empty($_REQUEST['nombre']) || $_REQUEST['unidad'] == "0" || $_REQUEST['tipo'] == "0"){
             echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
             <a href='anadirIngredientes.php'>Volver</a></h2></fieldset>";
         }else{
@@ -593,7 +592,7 @@ function anadirIngredientes($conexion){
 function borrarIngredientes($conexion){
 	if (isset($_REQUEST['Borrar'])){
           $sql="DELETE FROM Ingrediente WHERE nom_ingrediente='". $_REQUEST['borrarSelect'] . "'";
-          if($_REQUEST['borrarSelect'] == 0){
+          if($_REQUEST['borrarSelect'] == "0"){
               echo "<fieldset><h2>Error: Seleccione un ingrediente.<br><br>
               <a href='borrarIngredientes.php'>Volver</a></h2></fieldset>";
           }else{
@@ -603,7 +602,7 @@ function borrarIngredientes($conexion){
           }
           mysqli_close($conexion);  
         }else{
-          $sql2="SELECT * from ingrediente";
+          $sql2="SELECT * from Ingrediente";
           $registros=mysqli_query($conexion,$sql2);
   
           
@@ -627,7 +626,7 @@ function borrarIngredientes($conexion){
 function anadirContiene($conexion){
 	if (isset($_REQUEST['Añadir'])){
           $sql="INSERT INTO Contiene values ('".$_REQUEST['anadirContiene1'] . "','" . $_REQUEST['anadirContiene2'] . "','" . $_REQUEST['cantidad'] . "')";
-          if($_REQUEST['anadirContiene1'] == 0 || $_REQUEST['anadirContiene2'] == 0 || empty($_REQUEST['cantidad'])){
+          if($_REQUEST['anadirContiene1'] == "0" || $_REQUEST['anadirContiene2'] == "0" || empty($_REQUEST['cantidad'])){
               echo "<fieldset><h2>Error: Rellene todos los campos.<br><br>
               <a href='anadirContiene.php'>Volver</a></h2></fieldset>";
           }else{
@@ -683,7 +682,7 @@ function borrarContiene($conexion){
 
     if (isset($_REQUEST['Siguiente'])){
 	   
-            if($_REQUEST['anadirContiene1'] == 0 ){
+            if($_REQUEST['anadirContiene1'] == "0" ){
                 echo "<fieldset><h2>Error: Seleccione una pizza.<br><br>
                 <a href='borrarContiene.php'>Volver</a></h2></fieldset>";
             }else{
@@ -717,7 +716,7 @@ function borrarContiene($conexion){
 function borrarContiene2($conexion,$anadirContiene1){
     if (isset($_REQUEST['Borrar'])){
 	    $sql="delete from Contiene where nom_pizza = '". $anadirContiene1 . "' and nom_ingrediente = '". $_REQUEST['anadirContiene2']."'";
-            if($_REQUEST['anadirContiene2'] == 0){
+            if($_REQUEST['anadirContiene2'] == "0"){
                 echo "<fieldset><h2>Error: Seleccione el ingrediente.<br><br>
                 <a href='borrarContiene2.php'>Volver</a></h2></fieldset>";
             }else{
