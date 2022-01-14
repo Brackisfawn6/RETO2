@@ -47,6 +47,7 @@
             <li><a id='menus' href='listarPizzas.php'>Ver La Carta</a></li>
             <li><a id='inicioSesion' href='login.php'>Login</a></li>
             <li><a id='contacto' href='contacto.php'>Contacto</a></li>
+            <li><a id='contacto' href='blog.php'>Blogs</a></li>
         </ul>
 
     </label>
